@@ -1,0 +1,23 @@
+{
+  "form": {
+    "userName": "Foydalanuvchi nomi",
+    "password": "Parol",
+    "enter": "Kirish"
+  },
+  "errors": {
+    "requiredContact": "Aloqa majburiy",
+    "requiredCode": "Kod majburiy",
+    "requiredType": "Tur majburiy",
+    "requiredName": "Ism majburiy",
+    "requiredSurname": "Familiya majburiy",
+    "requiredPassword": "Parol majburiy",
+    "invalidEmail": "Noto'g'ri elektron pochta",
+    "invalidPhone": "Noto'g'ri telefon raqami"
+  },
+  "notifications": {
+    "requestProcessing": "So'rov bajarilmoqda",
+    "requestSuccess": "So'rov muvaffaqiyatli bajarildi",
+    "requestError": "So'rov bajarilmadi",
+    "successEnter": "Muvaffaqiyatli tizimga kirdingiz!"
+  }
+}

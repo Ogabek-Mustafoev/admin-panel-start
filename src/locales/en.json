@@ -1,0 +1,23 @@
+{
+  "form": {
+    "userName": "User name",
+    "password": "Password",
+    "enter": "Enter"
+  },
+  "errors": {
+    "requiredContact": "Contact is required",
+    "requiredCode": "Code is required",
+    "requiredType": "Type is required",
+    "requiredName": "Name is required",
+    "requiredSurname": "Surname is required",
+    "requiredPassword": "Password is required",
+    "invalidEmail": "Invalid email",
+    "invalidPhone": "Invalid phone"
+  },
+  "notifications": {
+    "requestProcessing": "Request is processing...",
+    "requestSuccess": "Request successfully processed",
+    "requestError": "Request failed",
+    "successEnter": "You successfully logged in!"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "form": {
+    "userName": "Имя пользователя",
+    "password": "Пароль",
+    "enter": "Войти"
+  },
+  "errors": {
+    "requiredContact": "Контакт обязателен",
+    "requiredCode": "Код обязателен",
+    "requiredType": "Тип обязателен",
+    "requiredName": "Имя обязательно",
+    "requiredSurname": "Фамилия обязательна",
+    "requiredPassword": "Пароль обязателен",
+    "invalidEmail": "Неверный адрес электронной почты",
+    "invalidPhone": "Неверный номер телефона"
+  },
+  "notifications": {
+    "requestProcessing": "Запрос обрабатывается...",
+    "requestSuccess": "Запрос успешно обработан",
+    "requestError": "Ошибка выполнения запроса",
+    "successEnter": "Вы успешно вошли в систему!"
+  }
+}
