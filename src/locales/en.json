@@ -2,7 +2,15 @@
   "form": {
     "userName": "User name",
     "password": "Password",
-    "enter": "Enter"
+    "enter": "Enter",
+    "phone": "Phone",
+    "email": "Email",
+    "logout": "Logout",
+    "name": "First Name",
+    "surname": "Last Name",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirmLogout": "Are you sure you want to log out?"
   },
   "errors": {
     "requiredContact": "Contact is required",
@@ -14,10 +22,24 @@
     "invalidEmail": "Invalid email",
     "invalidPhone": "Invalid phone"
   },
+  "pages": {
+    "enter": "Enter",
+    "myProfile": "My profile",
+    "appearance": "Appearance",
+    "mode": "MODE",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "colorTheme": "COLOR THEME",
+    "background": "BACKGROUND",
+    "userInformation": "User Information",
+    "saveChanges": "Save changes"
+  },
   "notifications": {
     "requestProcessing": "Request is processing...",
     "requestSuccess": "Request successfully processed",
     "requestError": "Request failed",
-    "successEnter": "You successfully logged in!"
+    "successEnter": "You successfully logged in!",
+    "profileUpdated": "Profile successfully updated!"
   }
 }

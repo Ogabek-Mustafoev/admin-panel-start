@@ -2,7 +2,15 @@
   "form": {
     "userName": "Foydalanuvchi nomi",
     "password": "Parol",
-    "enter": "Kirish"
+    "enter": "Kirish",
+    "phone": "Telefon",
+    "email": "Email",
+    "logout": "Chiqish",
+    "name": "Ism",
+    "surname": "Familiya",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "confirmLogout": "Tizimdan chiqishga ishonchingiz komilmi?"
   },
   "errors": {
     "requiredContact": "Aloqa majburiy",
@@ -14,10 +22,24 @@
     "invalidEmail": "Noto'g'ri elektron pochta",
     "invalidPhone": "Noto'g'ri telefon raqami"
   },
+  "pages": {
+    "enter": "Kirish",
+    "myProfile": "Mening profilim",
+    "appearance": "Tashqi ko'rinish",
+    "mode": "REJIM",
+    "light": "Yorug'",
+    "dark": "Qorong'u",
+    "system": "Tizim",
+    "colorTheme": "RANG MAVZUSI",
+    "background": "ORQA FON",
+    "userInformation": "Foydalanuvchi ma'lumotlari",
+    "saveChanges": "O'zgarishlarni saqlash"
+  },
   "notifications": {
     "requestProcessing": "So'rov bajarilmoqda",
     "requestSuccess": "So'rov muvaffaqiyatli bajarildi",
     "requestError": "So'rov bajarilmadi",
-    "successEnter": "Muvaffaqiyatli tizimga kirdingiz!"
+    "successEnter": "Muvaffaqiyatli tizimga kirdingiz!",
+    "profileUpdated": "Profil muvaffaqiyatli yangilandi!"
   }
 }

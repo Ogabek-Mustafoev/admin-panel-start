@@ -7,7 +7,7 @@ const fetchFn: AxiosInstance = axios.create({
 
 fetchFn.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("mediaToken");
+    const token = localStorage.getItem("mediaManageToken");
 
     config.headers.setAuthorization(`Bearer ${token}`);
     return config;

@@ -9,8 +9,21 @@ export type TObject<T = TDynamic> = Record<string, T>;
 
 export interface IInitialData {
   id: string;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IMeta {
+  page: number;
+  total: number;
+  pageSize: number;
+  pageCount: number;
+}
+
+export interface IResponse<T = any> {
+  data: T;
+  message: string;
+  success: boolean;
 }
 
 export interface ISelect<T = TDynamic, I = string> {

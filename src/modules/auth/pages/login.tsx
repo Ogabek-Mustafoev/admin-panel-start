@@ -1,12 +1,13 @@
-import { Button, ConfigProvider, theme } from "antd";
+import { MailFilled, PhoneFilled } from "@ant-design/icons";
+import { Button, ConfigProvider, Segmented, theme } from "antd";
 
-import { type TUserField } from "@/schema/user.ts";
-import { ChangeLocale, MainInput } from "@/components";
+import { type TLoginUserField } from "@/schema/user.ts";
+import { ChangeLocale, MainInput, PhoneInput } from "@/components";
 
 import { useLoginProps } from "../props/login.ts";
 
 export const Login = () => {
-  const { onSubmit, t, control, isPending } = useLoginProps();
+  const { onSubmit, t, control, setValue, isPending, type } = useLoginProps();
 
   return (
     <section className="from-secondary relative h-full w-full bg-linear-to-b to-indigo-900 text-black">
@@ -24,15 +25,37 @@ export const Login = () => {
                 MEDIA HUB | {t("enter", { ns: "pages" })}
               </h1>
             </div>
-            <MainInput<TUserField>
-              required
+            <Segmented<TLoginUserField['type']>
+              block
+              value={type}
+              onChange={val => {
+                setValue('type', val)
+                setValue('contact', "")
+              }}
               size="large"
-              name='contact'
-              control={control}
-              label={t("userName")}
-              placeholder={t("userName")}
+              options={[{
+                label: (<div className="flex items-center gap-2"><PhoneFilled /> {t("phone")}</div>), value: "phone"
+              }, {
+                label: (<div className="flex items-center gap-2"><MailFilled /> {t("email")}</div>), value: "email"
+              }]}
             />
-            <MainInput<TUserField>
+            {type === "phone" ? (
+              <PhoneInput<TLoginUserField>
+                control={control}
+                name='contact'
+              />
+            ) : (
+              <MainInput<TLoginUserField>
+                required
+                size="large"
+                type="email"
+                name='contact'
+                control={control}
+                label={t("email")}
+                placeholder={t("email")}
+              />
+            )}
+            <MainInput<TLoginUserField>
               required
               size="large"
               type="password"

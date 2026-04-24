@@ -29,11 +29,13 @@ export const PhoneInput = <T extends FieldValues>(
         className={`w-full ${pathname !== "/login" && "dark:border-neutral-700 dark:bg-neutral-900"} bg-white ${error?.message ? "border-red-600" : "border-gray-300"} border`}
         defaultCountry="uz"
         countries={[["Uzbekistan", "uz", "998", ".. ... .. .."]]}
+        forceDialCode
         inputClassName={`w-full !bg-transparent text-black ${pathname !== "/login" && "dark:text-white"}`}
         inputProps={{
           inputMode: "numeric",
         }}
         {...field}
+        onChange={(value) => field.onChange(value.replace(/^\+/, ""))}
       />
       {error?.message && (
         <p className="text-xs text-red-500">{t(error.message)}</p>

@@ -12,9 +12,8 @@ export const useFetchData = <T>(props: IFetchingProps) => {
     staleTime,
     queryFn: async (context) => {
       try {
-        const { data } = await fetchFn({
-          url,
-          method: "GET",
+        const { data } = await fetchFn.get<T>(url!, {
+          params,
           signal: context.signal,
         });
         return data as T;

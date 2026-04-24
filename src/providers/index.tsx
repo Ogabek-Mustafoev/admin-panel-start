@@ -51,6 +51,7 @@ export const Providers: FC<IChildren> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider
+        componentSize="large"
         locale={antLocales[i18n?.language as TLocale]}
         theme={{
           token: {
@@ -63,6 +64,18 @@ export const Providers: FC<IChildren> = ({ children }) => {
             },
             Menu: {
               fontSize: 16,
+              darkItemBg: "#355872",
+              itemBg: "#355872",
+              itemColor: "#ffffff",
+              itemHoverColor: "#ffffff",
+              itemSelectedColor: "#ffffff",
+              itemHoverBg: "#5e798e",
+              itemSelectedBg: "#5e798e",
+              subMenuItemSelectedColor: "#64b5f6",
+              subMenuItemBg: "#2d4d63",
+              popupBg: "#355872",
+              darkSubMenuItemBg: "#2d4d63",
+              groupTitleColor: "#a0c4db",
             },
           },
         }}

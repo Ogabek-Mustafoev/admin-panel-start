@@ -2,7 +2,15 @@
   "form": {
     "userName": "Имя пользователя",
     "password": "Пароль",
-    "enter": "Войти"
+    "enter": "Войти",
+    "phone": "Телефон",
+    "email": "Электронная почта",
+    "logout": "Выйти",
+    "name": "Имя",
+    "surname": "Фамилия",
+    "save": "Сохранить",
+    "cancel": "Отменить",
+    "confirmLogout": "Вы уверены, что хотите выйти?"
   },
   "errors": {
     "requiredContact": "Контакт обязателен",
@@ -14,10 +22,24 @@
     "invalidEmail": "Неверный адрес электронной почты",
     "invalidPhone": "Неверный номер телефона"
   },
+  "pages": {
+    "enter": "Войти",
+    "myProfile": "Мой профиль",
+    "appearance": "Внешний вид",
+    "mode": "РЕЖИМ",
+    "light": "Светлая",
+    "dark": "Темная",
+    "system": "Системная",
+    "colorTheme": "ЦВЕТОВАЯ ТЕМА",
+    "background": "ФОН",
+    "userInformation": "Информация о пользователе",
+    "saveChanges": "Сохранить изменения"
+  },
   "notifications": {
     "requestProcessing": "Запрос обрабатывается...",
     "requestSuccess": "Запрос успешно обработан",
     "requestError": "Ошибка выполнения запроса",
-    "successEnter": "Вы успешно вошли в систему!"
+    "successEnter": "Вы успешно вошли в систему!",
+    "profileUpdated": "Профиль успешно обновлен!"
   }
 }

@@ -20,7 +20,7 @@ interface IMainInput<T extends FieldValues> extends UseControllerProps<T> {
   prefix?: InputNumberProps["prefix"];
   suffix?: InputNumberProps["suffix"];
   formatter?: InputNumberProps["formatter"];
-  type?: "password" | "text" | "textarea" | "number" | "time" | "otp";
+  type?: "password" | "text" | "textarea" | "number" | "time" | "otp" | "email";
 }
 
 export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
@@ -135,6 +135,7 @@ export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
           <Input
             {...field}
             size={size}
+            prefix={prefix}
             disabled={disabled}
             placeholder={placeholder}
             status={error?.message ? "error" : undefined}
