@@ -144,7 +144,7 @@ export const ProfilePage: FC = () => {
                       onClick={() => handleColorChange(color)}
                       className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 transition-all ${
                         primaryColor === color
-                          ? "border-white shadow-sm ring-2 ring-[var(--color-primary)]"
+                          ? "border-white shadow-sm ring-2 ring-primary"
                           : "border-transparent"
                       }`}
                       style={{ backgroundColor: color }}
@@ -161,7 +161,7 @@ export const ProfilePage: FC = () => {
                     <div
                       className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 transition-all ${
                         !PREDEFINED_COLORS.includes(primaryColor)
-                          ? "border-white shadow-sm ring-2 ring-[var(--color-primary)]"
+                          ? "border-white shadow-sm ring-2 ring-primary"
                           : "border-gray-200"
                       }`}
                       style={{
