@@ -56,16 +56,14 @@ export const ProfilePage: FC = () => {
         <Col xs={24} md={8}>
           <Space orientation="vertical" size={24} className="w-full">
             <Card className="rounded-2xl border-none pt-4 pb-4 text-center shadow-sm">
-              <div className="relative mb-4 inline-block">
-                <Avatar
-                  size={120}
-                  icon={<UserOutlined />}
-                  className="bg-gray-100 text-gray-400"
-                />
-              </div>
-              <Title level={4} className="mt-2 mb-0">
+              <Avatar
+                size={120}
+                icon={<UserOutlined />}
+                className="bg-gray-100 text-gray-400"
+              />
+              <h4 className="mt-4 font-semibold text-lg">
                 {user?.name}
-              </Title>
+              </h4>
               <Text type="secondary" className="text-xs">
                 {user?.position}
               </Text>
@@ -144,7 +142,7 @@ export const ProfilePage: FC = () => {
                       onClick={() => handleColorChange(color)}
                       className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 transition-all ${
                         primaryColor === color
-                          ? "border-white shadow-sm ring-2 ring-primary"
+                          ? "ring-primary border-white shadow-sm ring-2"
                           : "border-transparent"
                       }`}
                       style={{ backgroundColor: color }}
@@ -161,7 +159,7 @@ export const ProfilePage: FC = () => {
                     <div
                       className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 transition-all ${
                         !PREDEFINED_COLORS.includes(primaryColor)
-                          ? "border-white shadow-sm ring-2 ring-primary"
+                          ? "ring-primary border-white shadow-sm ring-2"
                           : "border-gray-200"
                       }`}
                       style={{
@@ -224,9 +222,9 @@ export const ProfilePage: FC = () => {
         <Col xs={24} md={16}>
           <Card
             title={
-              <Title level={5} className="text-md mb-0">
+              <h4 className="mt-0 text-lg font-semibold">
                 {t("userInformation", { ns: "pages" })}
-              </Title>
+              </h4>
             }
             className="rounded-2xl border-none shadow-sm"
           >
