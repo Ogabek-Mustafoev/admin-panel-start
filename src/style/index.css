@@ -22,6 +22,8 @@
   --color-dark-theme: #141414;
 }
 
+
+
 /* Dark mode */
 @variant dark (&:where(.dark, .dark *));
 

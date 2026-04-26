@@ -11,19 +11,22 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { ConfigProvider, theme as antdTheme } from "antd";
+import { GLASS } from "@/constants/data";
 
 const { darkAlgorithm, defaultAlgorithm } = antdTheme;
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { staleTime: 300000 },
+  },
+});
+
 export const Providers: FC<IChildren> = ({ children }) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 300000,
-      },
-    },
-  });
   const { i18n } = useTranslation();
   const { theme, primaryColor } = useTheme();
+
+  const isLight = theme === "light";
+  const g = isLight ? GLASS.light : GLASS.dark;
 
   const antLocales: Record<TLocale, Locale> = useMemo(
     () => ({
@@ -40,31 +43,62 @@ export const Providers: FC<IChildren> = ({ children }) => {
         componentSize="large"
         locale={antLocales[i18n?.language as TLocale]}
         theme={{
-          algorithm: theme === "light" ? defaultAlgorithm : darkAlgorithm,
+          algorithm: isLight ? defaultAlgorithm : darkAlgorithm,
           token: {
             colorPrimary: primaryColor,
             controlOutlineWidth: 0.5,
+            colorBgContainer: g.bg,
+            colorBgElevated: g.bgElevated,
+            borderRadius: 16,
+            boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.1)",
           },
           components: {
+            Card: {
+              colorBorderSecondary: g.border,
+            },
             Table: {
               fontSize: 16,
+              colorBgContainer: "transparent",
             },
-            Menu:
-              theme === "light"
-                ? {
-                    itemBg: "#355872",
-                    itemColor: "#ffffff",
-                    itemHoverColor: "#ffffff",
-                    itemSelectedColor: "#ffffff",
-                    itemHoverBg: "#5e798e",
-                    itemSelectedBg: "#5e798e",
-                    subMenuItemSelectedColor: "#64b5f6",
-                    subMenuItemBg: "#2d4d63",
-                    popupBg: "#355872",
-                    darkSubMenuItemBg: "#2d4d63",
-                    groupTitleColor: "#a0c4db",
-                  }
-                : { itemSelectedColor: "white",},
+            Modal: {
+              contentBg: g.bgElevated,
+              headerBg: "transparent",
+              footerBg: "transparent",
+            },
+            Segmented: {
+              itemSelectedBg: g.menuSelectedBg,
+              trackBg: g.bg,
+            },
+            Drawer: {
+              colorBgElevated: g.bgElevated,
+            },
+            Dropdown: {
+              colorBgElevated: g.menuPopupBg,
+            },
+            Select: {
+              colorBgElevated: g.menuPopupBg,
+              colorBgContainer: g.bg,
+            },
+            DatePicker: {
+              colorBgContainer: g.bg,
+              colorBgElevated: g.menuPopupBg,
+            },
+            Input: {
+              colorBgContainer: g.bg,
+            },
+            Menu: {
+              itemBg: "transparent",
+              itemColor: isLight ? "#ffffff" : undefined,
+              itemHoverColor: isLight ? "#ffffff" : undefined,
+              itemSelectedColor: isLight ? "#ffffff" : "#ffffff",
+              itemHoverBg: g.menuHoverBg,
+              itemSelectedBg: g.menuSelectedBg,
+              subMenuItemSelectedColor: "#64b5f6",
+              subMenuItemBg: g.menuSubBg,
+              popupBg: g.menuPopupBg,
+              darkSubMenuItemBg: g.menuSubBg,
+              groupTitleColor: g.menuGroupTitle,
+            },
           },
         }}
       >

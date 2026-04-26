@@ -39,13 +39,16 @@ export const ProfilePage: FC = () => {
     onSubmit,
     isPending,
     user,
-    handleThemeChange,
     theme,
     bgImage,
+    bgColor,
     handleUpload,
     handleRemove,
     primaryColor,
+    handleThemeChange,
+    availableBgColors,
     handleColorChange,
+    handleBgColorChange,
   } = useProfileProps();
 
   return (
@@ -61,9 +64,7 @@ export const ProfilePage: FC = () => {
                 icon={<UserOutlined />}
                 className="bg-gray-100 text-gray-400"
               />
-              <h4 className="mt-4 font-semibold text-lg">
-                {user?.name}
-              </h4>
+              <h4 className="mt-4 text-lg font-semibold">{user?.name}</h4>
               <Text type="secondary" className="text-xs">
                 {user?.position}
               </Text>
@@ -174,12 +175,36 @@ export const ProfilePage: FC = () => {
                   </ColorPicker>
                 </Space>
               </div>
+
               <div className="mb-6">
                 <Text
                   strong
                   className="mb-3 block text-sm tracking-wider text-gray-400 uppercase"
                 >
                   {t("background", { ns: "pages" })}
+                </Text>
+                <div className="mb-4">
+                  <Text className="mb-2 block text-xs text-gray-400">
+                    {t("colors", { ns: "pages" })}
+                  </Text>
+                  <Space size={12}>
+                    {availableBgColors.map((color) => (
+                      <div
+                        key={color}
+                        onClick={() => handleBgColorChange(color)}
+                        className={`h-10 w-16 cursor-pointer rounded-lg border-2 transition-all ${
+                          bgColor === color
+                            ? "border-primary ring-primary ring-2 ring-offset-2"
+                            : "border-gray-200"
+                        }`}
+                        style={{ backgroundColor: color }}
+                      />
+                    ))}
+                  </Space>
+                </div>
+
+                <Text className="mb-2 block text-xs text-gray-400">
+                  {t("image", { ns: "pages" })}
                 </Text>
                 {bgImage ? (
                   <Button

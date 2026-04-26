@@ -19,6 +19,8 @@ export const PhoneInput = <T extends FieldValues>(
     fieldState: { error },
   } = useController(props);
 
+  const isLogin = pathname === "/login";
+
   return (
     <div>
       <p className="mb-1.5 font-medium">
@@ -26,11 +28,22 @@ export const PhoneInput = <T extends FieldValues>(
         <span className="font-bold text-red-500">*</span>
       </p>
       <Phone
-        className={`w-full ${pathname !== "/login" && "dark:border-neutral-700 dark:bg-neutral-900"} bg-white ${error?.message ? "border-red-600" : "border-gray-300"} border`}
+        className={`
+          w-full border rounded-2xl overflow-hidden
+          backdrop-blur-md pl-3
+          bg-white/10! dark:bg-black/10!
+          ${error?.message ? "border-red-500" : "border-black/10 dark:border-white/20"}
+          ${!isLogin && "dark:bg-neutral-900/40"}
+          transition-all duration-200
+        `}
         defaultCountry="uz"
         countries={[["Uzbekistan", "uz", "998", ".. ... .. .."]]}
         forceDialCode
-        inputClassName={`w-full !bg-transparent text-black ${pathname !== "/login" && "dark:text-white!"}`}
+        inputClassName={`
+          w-full !bg-transparent
+          text-black dark:text-white
+          placeholder:text-black/40 dark:placeholder:text-white/30
+        `}
         inputProps={{
           inputMode: "numeric",
           autoComplete: "on",
@@ -39,7 +52,7 @@ export const PhoneInput = <T extends FieldValues>(
         onChange={(value) => field.onChange(value.replace(/^\+/, ""))}
       />
       {error?.message && (
-        <p className="text-xs text-red-500">{t(error.message)}</p>
+        <p className="mt-1 text-xs text-red-500">{t(error.message)}</p>
       )}
     </div>
   );

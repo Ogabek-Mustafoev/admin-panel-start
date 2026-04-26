@@ -37,7 +37,9 @@
     "uploadBackground": "Rasm yuklash",
     "removeBackground": "Rasmni o'chirish",
     "userInformation": "Foydalanuvchi ma'lumotlari",
-    "saveChanges": "O'zgarishlarni saqlash"
+    "saveChanges": "O'zgarishlarni saqlash",
+    "colors": "Ranglar",
+    "image": "Rasm"
   },
   "notifications": {
     "requestProcessing": "So'rov bajarilmoqda",

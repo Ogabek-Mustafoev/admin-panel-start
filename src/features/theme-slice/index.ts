@@ -4,12 +4,14 @@ import type { TTheme } from "@/types";
 interface ThemeState {
   theme: TTheme;
   bgImage: string | null;
+  bgColor: string | null;
   primaryColor: string;
 }
 
 const initialState: ThemeState = {
   theme: (localStorage.theme || "system") as TTheme,
   bgImage: null,
+  bgColor: localStorage.getItem("bgColor") || null,
   primaryColor: localStorage.getItem("primaryColor") || "#355872",
 };
 
@@ -35,6 +37,19 @@ const themeSlice = createSlice({
     },
     setBgImage(state, action: PayloadAction<string | null>) {
       state.bgImage = action.payload;
+      if (action.payload) {
+        state.bgColor = null;
+        localStorage.removeItem("bgColor");
+      }
+    },
+    setBgColor(state, action: PayloadAction<string | null>) {
+      state.bgColor = action.payload;
+      if (action.payload) {
+        state.bgImage = null;
+        localStorage.setItem("bgColor", action.payload);
+      } else {
+        localStorage.removeItem("bgColor");
+      }
     },
     setPrimaryColor(state, action: PayloadAction<string>) {
       state.primaryColor = action.payload;
@@ -43,5 +58,6 @@ const themeSlice = createSlice({
   },
 });
 
-export const { toggleTheme, setTheme, setBgImage, setPrimaryColor } = themeSlice.actions;
+export const { toggleTheme, setTheme, setBgImage, setBgColor, setPrimaryColor } =
+  themeSlice.actions;
 export default themeSlice.reducer;

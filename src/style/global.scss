@@ -10,18 +10,41 @@ html {
 }
 
 html.dark {
-  .react-international-phone-country-selector-button {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #4a4a4a;
+  .react-international-phone-country-selector-dropdown {
+    background: rgba(20, 20, 20, 0.7) !important;
+    color: white !important;
   }
 
   body {
     color: white;
     background-color: black;
   }
+
+  .react-international-phone-input  {
+    color: white !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+  }
+}
+
+.react-international-phone-country-selector-button {
+  background: transparent !important;
+  border: none !important;
+  backdrop-filter: blur(8px);
+}
+
+.react-international-phone-input {
+  background: transparent !important;
+  border: none !important;
+  font-size: 16px !important;
+}
+
+.react-international-phone-country-selector-dropdown {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.6) !important;
 }
 
 .wave-loader {
@@ -49,16 +72,17 @@ html.dark {
   }
 }
 
-.react-international-phone-input-container {
-  border-radius: 8px;
-  padding: 1.3px 0 1.3px 8px;
-  overflow: hidden;
-}
-
-.react-international-phone-input,
-.react-international-phone-country-selector-button {
-  border: none !important;
-  font-size: 16px !important;
+.ant-card,
+.ant-modal-content,
+.ant-drawer-content,
+.ant-popover-inner,
+.ant-select-dropdown,
+.ant-picker-dropdown,
+.ant-dropdown-menu,
+.ant-modal-container,
+.ant-segmented-item-selected {
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
 }
 
 ::-webkit-scrollbar {

@@ -133,6 +133,7 @@ export const Sidebar: FC = () => {
           defaultSelectedKeys={["1"]}
           defaultOpenKeys={["sub1"]}
           mode="inline"
+          className="flex-1"
           inlineCollapsed={isCollapsed}
           tooltip={isCollapsed ? { placement: "left" } : false}
           items={menuItems}

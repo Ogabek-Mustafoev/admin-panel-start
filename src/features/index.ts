@@ -5,6 +5,7 @@ import themeReducer, {
   setTheme,
   setBgImage,
   setPrimaryColor,
+  setBgColor,
 } from "./theme-slice";
 
 export {
@@ -18,5 +19,6 @@ export {
   toggleTheme,
   setBgImage,
   setPrimaryColor,
+  setBgColor,
   themeReducer,
 };

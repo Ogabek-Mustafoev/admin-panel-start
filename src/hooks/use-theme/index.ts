@@ -2,11 +2,15 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import type { TTheme } from "@/types";
-import { setTheme, setPrimaryColor } from "@/features";
 import { useAppSelector } from "@/hooks";
+import { setTheme, setPrimaryColor, setBgColor } from "@/features";
+
+import { PREDEFINED_BG_COLORS } from "@/constants/data";
 
 export const useTheme = () => {
-  const { theme, primaryColor } = useAppSelector((state) => state.theme);
+  const { theme, primaryColor, bgColor, bgImage } = useAppSelector(
+    (state) => state.theme,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,6 +27,23 @@ export const useTheme = () => {
   }, [theme]);
 
   useEffect(() => {
+    if (bgImage) return;
+
+    const isDark =
+      theme === "dark" ||
+      (theme === "system" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+    const availableColors = isDark
+      ? PREDEFINED_BG_COLORS.dark
+      : PREDEFINED_BG_COLORS.light;
+
+    if (bgColor && !availableColors.includes(bgColor)) {
+      dispatch(setBgColor(availableColors[0]));
+    }
+  }, [theme, bgImage, bgColor]);
+
+  useEffect(() => {
     document.documentElement.style.setProperty("--color-primary", primaryColor);
   }, [primaryColor]);
 
@@ -34,5 +55,16 @@ export const useTheme = () => {
     dispatch(setPrimaryColor(color));
   };
 
-  return { theme, primaryColor, handleThemeChange, handleColorChange };
+  const handleBgColorChange = (color: string | null) => {
+    dispatch(setBgColor(color));
+  };
+
+  return {
+    theme,
+    primaryColor,
+    bgColor,
+    handleThemeChange,
+    handleColorChange,
+    handleBgColorChange,
+  };
 };

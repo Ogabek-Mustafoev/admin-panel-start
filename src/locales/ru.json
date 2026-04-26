@@ -37,7 +37,9 @@
     "uploadBackground": "Загрузить фото",
     "removeBackground": "Удалить фото",
     "userInformation": "Информация о пользователе",
-    "saveChanges": "Сохранить изменения"
+    "saveChanges": "Сохранить изменения",
+    "colors": "Цвета",
+    "image": "Изображение"
   },
   "notifications": {
     "requestProcessing": "Запрос обрабатывается...",

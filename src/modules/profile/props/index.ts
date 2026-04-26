@@ -9,14 +9,21 @@ import {
 } from "@/schema/user.ts";
 import type { IResponse } from "@/types";
 import { saveBackground, removeBackgroundFromDB } from "@/utils/db";
-import { setBgImage, logIn } from "@/features";
+import { setBgImage, logIn, setBgColor } from "@/features";
+import { PREDEFINED_BG_COLORS } from "@/constants/data";
 
 export const useProfileProps = () => {
   const { t } = useTranslation();
   const { user } = useAppSelector((state) => state.auth);
   const { bgImage } = useAppSelector((state) => state.theme);
-  const { theme, primaryColor, handleThemeChange, handleColorChange } =
-    useTheme();
+  const {
+    theme,
+    primaryColor,
+    bgColor,
+    handleThemeChange,
+    handleColorChange,
+    handleBgColorChange,
+  } = useTheme();
   const dispatch = useAppDispatch();
 
   const { mutate, isPending } = useMutate<IResponse<IUser>>();
@@ -31,7 +38,7 @@ export const useProfileProps = () => {
       data,
       method: "PATCH",
       onSuccess: ({ data }) => {
-        dispatch(logIn(data))
+        dispatch(logIn(data));
       },
       success: t("profileUpdated", { ns: "notifications" }),
       url: "/profile",
@@ -49,20 +56,28 @@ export const useProfileProps = () => {
   const handleRemove = async () => {
     await removeBackgroundFromDB();
     dispatch(setBgImage(null));
+    dispatch(setBgColor(null));
   };
+
+  const availableBgColors = theme !== "light"
+    ? PREDEFINED_BG_COLORS.dark
+    : PREDEFINED_BG_COLORS.light;
 
   return {
     t,
     user,
     theme,
     bgImage,
+    bgColor,
     primaryColor,
     control,
     onSubmit,
     isPending,
     handleUpload,
     handleRemove,
+    availableBgColors,
     handleThemeChange,
     handleColorChange,
+    handleBgColorChange,
   };
 };

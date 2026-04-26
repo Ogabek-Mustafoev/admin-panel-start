@@ -37,7 +37,9 @@
     "uploadBackground": "Upload photo",
     "removeBackground": "Remove photo",
     "userInformation": "User Information",
-    "saveChanges": "Save changes"
+    "saveChanges": "Save changes",
+    "colors": "Colors",
+    "image": "Image"
   },
   "notifications": {
     "requestProcessing": "Request is processing...",
