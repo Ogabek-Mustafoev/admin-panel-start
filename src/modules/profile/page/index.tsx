@@ -10,30 +10,47 @@ import {
   Segmented,
   Space,
   Typography,
+  ColorPicker,
 } from "antd";
 import {
-  UserOutlined,
   SunOutlined,
   MoonOutlined,
   DesktopOutlined,
   SaveOutlined,
   EditOutlined,
+  MailOutlined,
+  UploadOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 
-import { MainInput } from "@/components";
+import { MainInput, PhoneInput } from "@/components";
 import { useProfileProps } from "../props";
 import type { TUserField } from "@/schema/user.ts";
+import type { TTheme } from "@/types";
+import { PREDEFINED_COLORS } from "@/constants/data";
+import { UserOutlined } from "@ant-design/icons";
 
 const { Title, Text } = Typography;
 
 export const ProfilePage: FC = () => {
-  const { t, control, onSubmit, isPending, user } = useProfileProps();
+  const {
+    t,
+    control,
+    onSubmit,
+    isPending,
+    user,
+    handleThemeChange,
+    theme,
+    bgImage,
+    handleUpload,
+    handleRemove,
+    primaryColor,
+    handleColorChange,
+  } = useProfileProps();
 
   return (
     <section className="min-h-full">
-      <h1 className="mb-4 text-2xl font-semibold">
-        {t("myProfile", { ns: "pages" })}
-      </h1>
+      <Title level={3}>{t("myProfile", { ns: "pages" })}</Title>
       <Divider />
       <Row gutter={[24, 24]}>
         <Col xs={24} md={8}>
@@ -71,8 +88,10 @@ export const ProfilePage: FC = () => {
                 >
                   {t("mode", { ns: "pages" })}
                 </Text>
-                <Segmented
+                <Segmented<TTheme>
                   block
+                  value={theme}
+                  onChange={handleThemeChange}
                   options={[
                     {
                       label: (
@@ -118,14 +137,43 @@ export const ProfilePage: FC = () => {
                 >
                   {t("colorTheme", { ns: "pages" })}
                 </Text>
-                <Space size={12}>
-                  <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-green-500 shadow-sm ring-2 ring-green-500">
-                    <div className="h-2 w-2 rounded-full bg-white" />
-                  </div>
-                  <div className="h-8 w-8 cursor-pointer rounded-full border-2 border-white bg-blue-500 shadow-sm" />
-                  <div className="h-8 w-8 cursor-pointer rounded-full border-2 border-white bg-emerald-500 shadow-sm" />
-                  <div className="h-8 w-8 cursor-pointer rounded-full border-2 border-white bg-gray-800 shadow-sm" />
-                  <div className="h-8 w-8 cursor-pointer rounded-full border-2 border-white bg-orange-500 shadow-sm" />
+                <Space size={12} wrap>
+                  {PREDEFINED_COLORS.map((color) => (
+                    <div
+                      key={color}
+                      onClick={() => handleColorChange(color)}
+                      className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 transition-all ${
+                        primaryColor === color
+                          ? "border-white shadow-sm ring-2 ring-[var(--color-primary)]"
+                          : "border-transparent"
+                      }`}
+                      style={{ backgroundColor: color }}
+                    >
+                      {primaryColor === color && (
+                        <div className="h-2 w-2 rounded-full bg-white" />
+                      )}
+                    </div>
+                  ))}
+                  <ColorPicker
+                    value={primaryColor}
+                    onChange={(color) => handleColorChange(color.toHexString())}
+                  >
+                    <div
+                      className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 transition-all ${
+                        !PREDEFINED_COLORS.includes(primaryColor)
+                          ? "border-white shadow-sm ring-2 ring-[var(--color-primary)]"
+                          : "border-gray-200"
+                      }`}
+                      style={{
+                        background:
+                          "conic-gradient(red, yellow, lime, aqua, blue, magenta, red)",
+                      }}
+                    >
+                      {!PREDEFINED_COLORS.includes(primaryColor) && (
+                        <div className="h-2 w-2 rounded-full bg-white" />
+                      )}
+                    </div>
+                  </ColorPicker>
                 </Space>
               </div>
               <div className="mb-6">
@@ -133,15 +181,42 @@ export const ProfilePage: FC = () => {
                   strong
                   className="mb-3 block text-sm tracking-wider text-gray-400 uppercase"
                 >
-                  {t("background", { ns: "pages" }) || "ORQA FON"}
+                  {t("background", { ns: "pages" })}
                 </Text>
-                <Space size={12}>
-                  <div className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 border-gray-200 bg-white shadow-sm ring-2 ring-gray-800">
-                    <div className="h-2 w-2 rounded-full bg-gray-800" />
+                {bgImage ? (
+                  <Button
+                    danger
+                    block
+                    size="large"
+                    icon={<DeleteOutlined />}
+                    onClick={handleRemove}
+                    className="flex items-center justify-center rounded-xl"
+                  >
+                    {t("removeBackground", { ns: "pages" })}
+                  </Button>
+                ) : (
+                  <div className="relative">
+                    <input
+                      type="file"
+                      id="bg-upload"
+                      hidden
+                      accept="image/*"
+                      onChange={handleUpload}
+                    />
+                    <Button
+                      block
+                      size="large"
+                      type="dashed"
+                      icon={<UploadOutlined />}
+                      onClick={() =>
+                        document.getElementById("bg-upload")?.click()
+                      }
+                      className="flex items-center justify-center rounded-xl"
+                    >
+                      {t("uploadBackground", { ns: "pages" })}
+                    </Button>
                   </div>
-                  <div className="h-8 w-8 cursor-pointer rounded-full border-2 border-white bg-blue-50 shadow-sm" />
-                  <div className="h-8 w-8 cursor-pointer rounded-full border-2 border-white bg-gray-200 shadow-sm" />
-                </Space>
+                )}
               </div>
             </Card>
           </Space>
@@ -178,6 +253,20 @@ export const ProfilePage: FC = () => {
                     size="large"
                     required
                   />
+                </Col>
+                <Col xs={24} md={12}>
+                  <MainInput<TUserField>
+                    control={control}
+                    name="email"
+                    label={t("email")}
+                    placeholder={t("email")}
+                    prefix={<MailOutlined className="mr-2 text-gray-400" />}
+                    size="large"
+                    required
+                  />
+                </Col>
+                <Col xs={24} md={12}>
+                  <PhoneInput<TUserField> control={control} name="phone" />
                 </Col>
                 <Col xs={24}>
                   <Button

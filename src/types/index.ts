@@ -13,6 +13,8 @@ export interface IInitialData {
   updated_at: string;
 }
 
+export type TTheme = "light" | "dark" | "system";
+
 export interface IMeta {
   page: number;
   total: number;

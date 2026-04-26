@@ -19,6 +19,8 @@
     "requiredName": "Ism majburiy",
     "requiredSurname": "Familiya majburiy",
     "requiredPassword": "Parol majburiy",
+    "requiredPhone": "Telefon raqami majburiy",
+    "requiredEmail": "Email majburiy",
     "invalidEmail": "Noto'g'ri elektron pochta",
     "invalidPhone": "Noto'g'ri telefon raqami"
   },
@@ -32,6 +34,8 @@
     "system": "Tizim",
     "colorTheme": "RANG MAVZUSI",
     "background": "ORQA FON",
+    "uploadBackground": "Rasm yuklash",
+    "removeBackground": "Rasmni o'chirish",
     "userInformation": "Foydalanuvchi ma'lumotlari",
     "saveChanges": "O'zgarishlarni saqlash"
   },

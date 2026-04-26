@@ -30,9 +30,10 @@ export const PhoneInput = <T extends FieldValues>(
         defaultCountry="uz"
         countries={[["Uzbekistan", "uz", "998", ".. ... .. .."]]}
         forceDialCode
-        inputClassName={`w-full !bg-transparent text-black ${pathname !== "/login" && "dark:text-white"}`}
+        inputClassName={`w-full !bg-transparent text-black ${pathname !== "/login" && "dark:text-white!"}`}
         inputProps={{
           inputMode: "numeric",
+          autoComplete: "on",
         }}
         {...field}
         onChange={(value) => field.onChange(value.replace(/^\+/, ""))}

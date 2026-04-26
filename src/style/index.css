@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@import "tailwindcss";
-
 /* Screens (breakpoints) */
 @theme {
   --breakpoint-xxs: 0px;
@@ -21,7 +19,7 @@
   --color-default: #f9fafb;
   --color-primary: #355872;
   --color-secondary: #527593;
-  --color-pink-badge: #f64459;
+  --color-dark-theme: #141414;
 }
 
 /* Dark mode */

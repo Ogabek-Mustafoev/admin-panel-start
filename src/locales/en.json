@@ -19,6 +19,8 @@
     "requiredName": "Name is required",
     "requiredSurname": "Surname is required",
     "requiredPassword": "Password is required",
+    "requiredPhone": "Phone number is required",
+    "requiredEmail": "Email is required",
     "invalidEmail": "Invalid email",
     "invalidPhone": "Invalid phone"
   },
@@ -32,6 +34,8 @@
     "system": "System",
     "colorTheme": "COLOR THEME",
     "background": "BACKGROUND",
+    "uploadBackground": "Upload photo",
+    "removeBackground": "Remove photo",
     "userInformation": "User Information",
     "saveChanges": "Save changes"
   },

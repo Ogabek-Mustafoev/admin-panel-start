@@ -108,7 +108,7 @@ export const Sidebar: FC = () => {
   return (
     <>
       <aside
-        className={`${isCollapsed ? "w-20" : "w-72"} bg-primary flex flex-col gap-4 transition-[width] duration-500`}
+        className={`${isCollapsed ? "w-20" : "w-72"} dark:bg-dark-theme flex flex-col gap-4 bg-[#355872] transition-[width] duration-500`}
       >
         <div className="flex items-center justify-between gap-2 overflow-hidden border-b border-white/10 p-4 pr-2">
           {!isCollapsed && (
@@ -132,13 +132,12 @@ export const Sidebar: FC = () => {
         <Menu
           defaultSelectedKeys={["1"]}
           defaultOpenKeys={["sub1"]}
-          className="bg-primary! flex-1"
           mode="inline"
           inlineCollapsed={isCollapsed}
           tooltip={isCollapsed ? { placement: "left" } : false}
           items={menuItems}
         />
-        <div className="flex flex-col gap-4 border-t border-white/10 p-4">
+        <div className="mt-auto flex flex-col gap-4 border-t border-white/10 p-4">
           <ChangeLocale isLarge />
           <Dropdown menu={{ items }} trigger={["click"]}>
             <Button

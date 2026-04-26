@@ -1,13 +1,18 @@
 import { useForm, type Resolver } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { useAppSelector, useMutate } from "@/hooks";
+import { useAppDispatch, useAppSelector, useMutate, useTheme } from "@/hooks";
 import { type IUser, type TUserField, userResolver } from "@/schema/user.ts";
 import type { IResponse } from "@/types";
+import { saveBackground, removeBackgroundFromDB } from "@/utils/db";
+import { setBgImage } from "@/features";
 
 export const useProfileProps = () => {
   const { t } = useTranslation();
-  const {user} = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
+  const { bgImage } = useAppSelector((state) => state.theme);
+  const { theme, primaryColor, handleThemeChange, handleColorChange } = useTheme();
+  const dispatch = useAppDispatch();
 
   const { mutate, isPending } = useMutate<IResponse<IUser>>();
 
@@ -20,16 +25,36 @@ export const useProfileProps = () => {
     mutate({
       data,
       method: "POST",
-      success: t('profileUpdated', { ns: 'notifications' }),
+      success: t("profileUpdated", { ns: "notifications" }),
       url: "/profile",
     });
   });
 
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const data = await saveBackground(file);
+      dispatch(setBgImage(data));
+    }
+  };
+
+  const handleRemove = async () => {
+    await removeBackgroundFromDB();
+    dispatch(setBgImage(null));
+  };
+
   return {
     t,
     user,
+    theme,
+    bgImage,
+    primaryColor,
     control,
     onSubmit,
     isPending,
+    handleUpload,
+    handleRemove,
+    handleThemeChange,
+    handleColorChange,
   };
 };

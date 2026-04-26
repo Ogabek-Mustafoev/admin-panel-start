@@ -16,6 +16,8 @@ export const userSchema = yup.object({
   ...loginUserSchema.fields,
   name: yup.string().required("requiredName"),
   surname: yup.string().required("requiredSurname"),
+  email: yup.string().email("invalidEmail").required("requiredEmail"),
+  phone: yup.string().matches(/^\d{12}$/, "invalidPhone").required("requiredPhone"),
 });
 
 export type TLoginUserField = yup.InferType<typeof loginUserSchema>;
@@ -26,8 +28,6 @@ export const userResolver = yupResolver(userSchema);
 
 export interface IUser extends IInitialData, TUserField {
   email_verified_at?: string;
-  email: string;
-  phone: string;
   verification_code?: string;
   verification_code_sent_at?: string;
   position?: string;

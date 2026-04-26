@@ -1,17 +1,18 @@
-import { type FC, useEffect, useMemo } from "react";
+import { type FC, useMemo } from "react";
 import type { IChildren, TLocale } from "@/types";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useTheme } from "@/hooks";
 import uzAntLocale from "antd/locale/uz_UZ";
 import ruAntLocale from "antd/locale/ru_RU";
 import enAntLocale from "antd/locale/en_US";
 import type { Locale } from "antd/es/locale";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { setTheme } from "@/features";
-import { ConfigProvider } from "antd";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { ConfigProvider, theme as antdTheme } from "antd";
+
+const { darkAlgorithm, defaultAlgorithm } = antdTheme;
 
 export const Providers: FC<IChildren> = ({ children }) => {
   const queryClient = new QueryClient({
@@ -22,8 +23,7 @@ export const Providers: FC<IChildren> = ({ children }) => {
     },
   });
   const { i18n } = useTranslation();
-  const dispatch = useAppDispatch();
-  const { isDark } = useAppSelector((state) => state.theme);
+  const { theme, primaryColor } = useTheme();
 
   const antLocales: Record<TLocale, Locale> = useMemo(
     () => ({
@@ -34,49 +34,37 @@ export const Providers: FC<IChildren> = ({ children }) => {
     [],
   );
 
-  useEffect(() => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.add("dark");
-      dispatch(setTheme(true));
-    } else {
-      dispatch(setTheme(false));
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider
         componentSize="large"
         locale={antLocales[i18n?.language as TLocale]}
         theme={{
+          algorithm: theme === "light" ? defaultAlgorithm : darkAlgorithm,
           token: {
-            colorPrimary: "#355872",
+            colorPrimary: primaryColor,
             controlOutlineWidth: 0.5,
           },
           components: {
             Table: {
               fontSize: 16,
             },
-            Menu: {
-              fontSize: 16,
-              darkItemBg: "#355872",
-              itemBg: "#355872",
-              itemColor: "#ffffff",
-              itemHoverColor: "#ffffff",
-              itemSelectedColor: "#ffffff",
-              itemHoverBg: "#5e798e",
-              itemSelectedBg: "#5e798e",
-              subMenuItemSelectedColor: "#64b5f6",
-              subMenuItemBg: "#2d4d63",
-              popupBg: "#355872",
-              darkSubMenuItemBg: "#2d4d63",
-              groupTitleColor: "#a0c4db",
-            },
+            Menu:
+              theme === "light"
+                ? {
+                    itemBg: "#355872",
+                    itemColor: "#ffffff",
+                    itemHoverColor: "#ffffff",
+                    itemSelectedColor: "#ffffff",
+                    itemHoverBg: "#5e798e",
+                    itemSelectedBg: "#5e798e",
+                    subMenuItemSelectedColor: "#64b5f6",
+                    subMenuItemBg: "#2d4d63",
+                    popupBg: "#355872",
+                    darkSubMenuItemBg: "#2d4d63",
+                    groupTitleColor: "#a0c4db",
+                  }
+                : { itemSelectedColor: "white",},
           },
         }}
       >
@@ -88,7 +76,7 @@ export const Providers: FC<IChildren> = ({ children }) => {
               initialIsOpen={false}
             />
           )}
-          <ToastContainer theme={isDark ? "dark" : "light"} />
+          <ToastContainer theme={theme === "dark" ? "dark" : "light"} />
         </BrowserRouter>
       </ConfigProvider>
     </QueryClientProvider>

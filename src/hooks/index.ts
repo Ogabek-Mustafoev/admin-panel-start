@@ -6,3 +6,4 @@ export { useFilterRoutes } from "./use-filter";
 export { useInvalidate } from "./use-invalidate";
 export { useAppDispatch, useAppSelector } from "./use-redux";
 export { useInfiniteFetch } from "./use-infinete-fetch";
+export { useTheme } from "./use-theme";

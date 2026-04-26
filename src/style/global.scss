@@ -9,9 +9,19 @@ html {
   transition-property: -webkit-filter;
 }
 
-.dark html {
-  -webkit-filter: invert(97%) grayscale(16%) brightness(91%);
-  filter: invert(97%) grayscale(16%) brightness(91%);
+html.dark {
+  .react-international-phone-country-selector-button {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+  }
+
+  body {
+    color: white;
+    background-color: black;
+  }
 }
 
 .wave-loader {
@@ -49,6 +59,18 @@ html {
 .react-international-phone-country-selector-button {
   border: none !important;
   font-size: 16px !important;
+}
+
+::-webkit-scrollbar {
+  width: 5px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
 }
 
 @keyframes wave {

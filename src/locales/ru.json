@@ -19,6 +19,8 @@
     "requiredName": "Имя обязательно",
     "requiredSurname": "Фамилия обязательна",
     "requiredPassword": "Пароль обязателен",
+    "requiredPhone": "Номер телефона обязателен",
+    "requiredEmail": "Email обязателен",
     "invalidEmail": "Неверный адрес электронной почты",
     "invalidPhone": "Неверный номер телефона"
   },
@@ -32,6 +34,8 @@
     "system": "Системная",
     "colorTheme": "ЦВЕТОВАЯ ТЕМА",
     "background": "ФОН",
+    "uploadBackground": "Загрузить фото",
+    "removeBackground": "Удалить фото",
     "userInformation": "Информация о пользователе",
     "saveChanges": "Сохранить изменения"
   },
