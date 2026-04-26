@@ -1,3 +1,4 @@
+import type { TObject } from "@/types";
 import { useSearchParams } from "react-router";
 
 export const useQueryParams = () => {
@@ -7,29 +8,26 @@ export const useQueryParams = () => {
     const excludedKeysSet = new Set(excludeKeys);
     const params: Record<string, string> = {};
 
-    for (const [key, value] of searchParams.entries()) {
+    searchParams.forEach((value, key) => {
       if (!excludedKeysSet.has(key)) {
         params[key] = value;
       }
-    }
+    });
 
     return params;
   };
 
-  const setQueryParams = (
-    newQuery: Record<string, string | string[] | null>,
-  ): void => {
-    setSearchParams((prev) => {
-      const updated = new URLSearchParams(prev); // mavjud params saqlanadi
+  const setQueryParams = (newQuery: TObject): void => {
+    setSearchParams(() => {
+      const updated = new URLSearchParams();
 
       Object.entries(newQuery).forEach(([key, value]) => {
-        if (value === null || value === undefined) {
-          updated.delete(key);
-        } else if (Array.isArray(value)) {
-          updated.delete(key);
-          value.forEach((v) => updated.append(key, v)); // array: repeat format
+        if (value === null || value === undefined) return;
+
+        if (Array.isArray(value)) {
+          value.forEach(v => updated.append(key, v));
         } else {
-          updated.set(key, value);
+          updated.set(key, String(value));
         }
       });
 

@@ -1,17 +1,6 @@
 import type { FC } from "react";
 import { IoIosColorPalette } from "react-icons/io";
-import {
-  Avatar,
-  Button,
-  Card,
-  Col,
-  Divider,
-  Row,
-  Segmented,
-  Space,
-  Typography,
-  ColorPicker,
-} from "antd";
+import { Avatar, Button, Card, Col, Divider, Row, Segmented, Space, Typography, ColorPicker } from "antd";
 import {
   SunOutlined,
   MoonOutlined,
@@ -59,11 +48,7 @@ export const ProfilePage: FC = () => {
         <Col xs={24} md={8}>
           <Space orientation="vertical" size={24} className="w-full">
             <Card className="rounded-2xl border-none pt-4 pb-4 text-center shadow-sm">
-              <Avatar
-                size={120}
-                icon={<UserOutlined />}
-                className="bg-gray-100 text-gray-400"
-              />
+              <Avatar size={120} icon={<UserOutlined />} className="bg-gray-100 text-gray-400" />
               <h4 className="mt-4 text-lg font-semibold">{user?.name}</h4>
               <Text type="secondary" className="text-xs">
                 {user?.position}
@@ -73,18 +58,13 @@ export const ProfilePage: FC = () => {
               title={
                 <Space>
                   <IoIosColorPalette className="text-2xl text-green-500" />
-                  <span className="text-md font-semibold">
-                    {t("appearance", { ns: "pages" })}
-                  </span>
+                  <span className="text-md font-semibold">{t("appearance", { ns: "pages" })}</span>
                 </Space>
               }
               className="rounded-2xl border-none shadow-sm"
             >
               <div className="mb-6">
-                <Text
-                  strong
-                  className="mb-3 block text-sm tracking-wider text-gray-400 uppercase"
-                >
+                <Text strong className="mb-3 block text-sm tracking-wider text-gray-400 uppercase">
                   {t("mode", { ns: "pages" })}
                 </Text>
                 <Segmented<TTheme>
@@ -95,10 +75,7 @@ export const ProfilePage: FC = () => {
                     {
                       label: (
                         <div className="px-1 py-1">
-                          <SunOutlined />{" "}
-                          <p className="text-sm">
-                            {t("light", { ns: "pages" })}
-                          </p>
+                          <SunOutlined /> <p className="text-sm">{t("light", { ns: "pages" })}</p>
                         </div>
                       ),
                       value: "light",
@@ -106,10 +83,7 @@ export const ProfilePage: FC = () => {
                     {
                       label: (
                         <div className="px-1 py-1">
-                          <MoonOutlined />{" "}
-                          <p className="text-sm">
-                            {t("dark", { ns: "pages" })}
-                          </p>
+                          <MoonOutlined /> <p className="text-sm">{t("dark", { ns: "pages" })}</p>
                         </div>
                       ),
                       value: "dark",
@@ -117,10 +91,7 @@ export const ProfilePage: FC = () => {
                     {
                       label: (
                         <div className="px-1 py-1">
-                          <DesktopOutlined />{" "}
-                          <p className="text-sm">
-                            {t("system", { ns: "pages" })}
-                          </p>
+                          <DesktopOutlined /> <p className="text-sm">{t("system", { ns: "pages" })}</p>
                         </div>
                       ),
                       value: "system",
@@ -130,33 +101,23 @@ export const ProfilePage: FC = () => {
               </div>
 
               <div className="mb-6">
-                <Text
-                  strong
-                  className="mb-3 block text-sm tracking-wider text-gray-400 uppercase"
-                >
+                <Text strong className="mb-3 block text-sm tracking-wider text-gray-400 uppercase">
                   {t("colorTheme", { ns: "pages" })}
                 </Text>
                 <Space size={12} wrap>
-                  {PREDEFINED_COLORS.map((color) => (
+                  {PREDEFINED_COLORS.map(color => (
                     <div
                       key={color}
                       onClick={() => handleColorChange(color)}
                       className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 transition-all ${
-                        primaryColor === color
-                          ? "ring-primary border-white shadow-sm ring-2"
-                          : "border-transparent"
+                        primaryColor === color ? "ring-primary border-white shadow-sm ring-2" : "border-transparent"
                       }`}
                       style={{ backgroundColor: color }}
                     >
-                      {primaryColor === color && (
-                        <div className="h-2 w-2 rounded-full bg-white" />
-                      )}
+                      {primaryColor === color && <div className="h-2 w-2 rounded-full bg-white" />}
                     </div>
                   ))}
-                  <ColorPicker
-                    value={primaryColor}
-                    onChange={(color) => handleColorChange(color.toHexString())}
-                  >
+                  <ColorPicker value={primaryColor} onChange={color => handleColorChange(color.toHexString())}>
                     <div
                       className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-2 transition-all ${
                         !PREDEFINED_COLORS.includes(primaryColor)
@@ -164,38 +125,28 @@ export const ProfilePage: FC = () => {
                           : "border-gray-200"
                       }`}
                       style={{
-                        background:
-                          "conic-gradient(red, yellow, lime, aqua, blue, magenta, red)",
+                        background: "conic-gradient(red, yellow, lime, aqua, blue, magenta, red)",
                       }}
                     >
-                      {!PREDEFINED_COLORS.includes(primaryColor) && (
-                        <div className="h-2 w-2 rounded-full bg-white" />
-                      )}
+                      {!PREDEFINED_COLORS.includes(primaryColor) && <div className="h-2 w-2 rounded-full bg-white" />}
                     </div>
                   </ColorPicker>
                 </Space>
               </div>
 
               <div className="mb-6">
-                <Text
-                  strong
-                  className="mb-3 block text-sm tracking-wider text-gray-400 uppercase"
-                >
+                <Text strong className="mb-3 block text-sm tracking-wider text-gray-400 uppercase">
                   {t("background", { ns: "pages" })}
                 </Text>
                 <div className="mb-4">
-                  <Text className="mb-2 block text-xs text-gray-400">
-                    {t("colors", { ns: "pages" })}
-                  </Text>
+                  <Text className="mb-2 block text-xs text-gray-400">{t("colors", { ns: "pages" })}</Text>
                   <Space size={12}>
-                    {availableBgColors.map((color) => (
+                    {availableBgColors.map(color => (
                       <div
                         key={color}
                         onClick={() => handleBgColorChange(color)}
                         className={`h-10 w-16 cursor-pointer rounded-lg border-2 transition-all ${
-                          bgColor === color
-                            ? "border-primary ring-primary ring-2 ring-offset-2"
-                            : "border-gray-200"
+                          bgColor === color ? "border-primary ring-primary ring-2 ring-offset-2" : "border-gray-200"
                         }`}
                         style={{ backgroundColor: color }}
                       />
@@ -203,9 +154,7 @@ export const ProfilePage: FC = () => {
                   </Space>
                 </div>
 
-                <Text className="mb-2 block text-xs text-gray-400">
-                  {t("image", { ns: "pages" })}
-                </Text>
+                <Text className="mb-2 block text-xs text-gray-400">{t("image", { ns: "pages" })}</Text>
                 {bgImage ? (
                   <Button
                     danger
@@ -219,21 +168,13 @@ export const ProfilePage: FC = () => {
                   </Button>
                 ) : (
                   <div className="relative">
-                    <input
-                      type="file"
-                      id="bg-upload"
-                      hidden
-                      accept="image/*"
-                      onChange={handleUpload}
-                    />
+                    <input type="file" id="bg-upload" hidden accept="image/*" onChange={handleUpload} />
                     <Button
                       block
                       size="large"
                       type="dashed"
                       icon={<UploadOutlined />}
-                      onClick={() =>
-                        document.getElementById("bg-upload")?.click()
-                      }
+                      onClick={() => document.getElementById("bg-upload")?.click()}
                       className="flex items-center justify-center rounded-xl"
                     >
                       {t("uploadBackground", { ns: "pages" })}
@@ -246,11 +187,7 @@ export const ProfilePage: FC = () => {
         </Col>
         <Col xs={24} md={16}>
           <Card
-            title={
-              <h4 className="mt-0 text-lg font-semibold">
-                {t("userInformation", { ns: "pages" })}
-              </h4>
-            }
+            title={<h4 className="mt-0 text-lg font-semibold">{t("userInformation", { ns: "pages" })}</h4>}
             className="rounded-2xl border-none shadow-sm"
           >
             <form onSubmit={onSubmit}>

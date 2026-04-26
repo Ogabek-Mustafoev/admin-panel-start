@@ -25,7 +25,7 @@ export const BaseLayout: FC = () => {
     <div className="flex h-screen w-screen overflow-hidden">
       <Sidebar />
       <main
-        className="flex-1 px-6 py-5.5 transition-all duration-500"
+        className="flex-1 overflow-hidden px-6 py-5.5 transition-all duration-500"
         style={{
           backgroundImage: bgImage ? `url(${bgImage})` : "none",
           backgroundColor: bgColor || "transparent",

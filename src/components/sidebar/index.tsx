@@ -30,7 +30,7 @@ export const Sidebar: FC = () => {
     () =>
       sideBarLinks?.map(({ path, icon: Icon, name }) => ({
         key: path,
-        label: t(name as string),
+        label: <Link to={path}>{t(name as string)}</Link>,
         icon: Icon ? <Icon className="h-6 w-6" /> : undefined,
       })),
     [sideBarLinks?.length, i18n.language],

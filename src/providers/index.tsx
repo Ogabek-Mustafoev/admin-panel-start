@@ -58,7 +58,7 @@ export const Providers: FC<IChildren> = ({ children }) => {
             },
             Table: {
               fontSize: 16,
-              colorBgContainer: "transparent",
+              colorBgContainer: g.bg,
             },
             Modal: {
               contentBg: g.bgElevated,

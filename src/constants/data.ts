@@ -32,3 +32,8 @@ export const GLASS = {
     menuGroupTitle: "rgba(255, 255, 255, 0.3)",
   },
 };
+
+export const STATUSES = [
+  { value: true, label: "active" },
+  { value: false, label: "inactive" },
+];

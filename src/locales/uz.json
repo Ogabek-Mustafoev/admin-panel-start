@@ -10,7 +10,10 @@
     "surname": "Familiya",
     "save": "Saqlash",
     "cancel": "Bekor qilish",
-    "confirmLogout": "Tizimdan chiqishga ishonchingiz komilmi?"
+    "confirmLogout": "Tizimdan chiqishga ishonchingiz komilmi?",
+    "status": "Holat",
+    "active": "Faol",
+    "inactive": "Faol emas"
   },
   "errors": {
     "requiredContact": "Aloqa majburiy",

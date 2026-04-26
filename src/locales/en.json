@@ -10,7 +10,10 @@
     "surname": "Last Name",
     "save": "Save",
     "cancel": "Cancel",
-    "confirmLogout": "Are you sure you want to log out?"
+    "confirmLogout": "Are you sure you want to log out?",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive"
   },
   "errors": {
     "requiredContact": "Contact is required",

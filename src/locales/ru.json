@@ -10,7 +10,10 @@
     "surname": "Фамилия",
     "save": "Сохранить",
     "cancel": "Отменить",
-    "confirmLogout": "Вы уверены, что хотите выйти?"
+    "confirmLogout": "Вы уверены, что хотите выйти?",
+    "status": "Статус",
+    "active": "Активный",
+    "inactive": "Неактивный"
   },
   "errors": {
     "requiredContact": "Контакт обязателен",
