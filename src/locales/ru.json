@@ -39,7 +39,10 @@
     "userInformation": "Информация о пользователе",
     "saveChanges": "Сохранить изменения",
     "colors": "Цвета",
-    "image": "Изображение"
+    "image": "Изображение",
+    "search": "Поиск",
+    "category": "Категория",
+    "allCategories": "Все категории"
   },
   "notifications": {
     "requestProcessing": "Запрос обрабатывается...",

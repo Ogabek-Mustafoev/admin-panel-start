@@ -4,14 +4,15 @@ import type { IRoute } from "@/types";
 import { useMemo } from "react";
 
 export const useFilterRoutes = () => {
-
   const filterRoutes = (routes: IRoute[]): IRoute[] => {
     return routes.reduce<IRoute[]>((acc, { children, access, ...route }) => {
-      acc.push({ ...route, access });
+      if (access?.has("all")) {
+        acc.push({ ...route, access });
 
-      if (children?.length) {
-        const filteredChildren = filterRoutes(children);
-        acc.push(...filteredChildren);
+        if (children?.length) {
+          const filteredChildren = filterRoutes(children);
+          acc.push(...filteredChildren);
+        }
       }
 
       return acc;

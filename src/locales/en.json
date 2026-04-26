@@ -39,7 +39,10 @@
     "userInformation": "User Information",
     "saveChanges": "Save changes",
     "colors": "Colors",
-    "image": "Image"
+    "image": "Image",
+    "search": "Search",
+    "category": "Category",
+    "allCategories": "All categories"
   },
   "notifications": {
     "requestProcessing": "Request is processing...",

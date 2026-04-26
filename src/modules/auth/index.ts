@@ -9,9 +9,4 @@ export const authRoutes: IRoute[] = [
     component: Login,
     access: new Set(["all"]),
   },
-  // {
-  //   name: "Register",
-  //   path: "/register",
-  //   component: Register,
-  // }
 ];

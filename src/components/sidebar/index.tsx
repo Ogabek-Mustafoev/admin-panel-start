@@ -1,19 +1,9 @@
-import { useState, type FC } from "react";
+import { useMemo, useState, type FC } from "react";
 import { FiLogOut, FiUser } from "react-icons/fi";
 import { Button, Dropdown, Menu, type DropDownProps } from "antd";
 import { LiaArrowsAltVSolid } from "react-icons/lia";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import {
-  MailOutlined,
-  DesktopOutlined,
-  AppstoreOutlined,
-  PieChartOutlined,
-  ContainerOutlined,
-} from "@ant-design/icons";
-import {
-  TbLayoutSidebarLeftCollapse,
-  TbLayoutSidebarRightCollapse,
-} from "react-icons/tb";
+import { useAppDispatch, useAppSelector, useFilterRoutes } from "@/hooks";
+import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarRightCollapse } from "react-icons/tb";
 import { logOut, toggleCollapse } from "@/features";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,10 +11,11 @@ import { ChangeLocale } from "../change-locale";
 import { DeleteModal } from "../delete-modal";
 
 export const Sidebar: FC = () => {
-  const { t } = useTranslation("pages");
+  const { t, i18n } = useTranslation("pages");
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAppSelector((state) => state.auth);
-  const { isCollapsed } = useAppSelector((state) => state.collapse);
+  const { user } = useAppSelector(state => state.auth);
+  const { sideBarLinks } = useFilterRoutes();
+  const { isCollapsed } = useAppSelector(state => state.collapse);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -33,42 +24,17 @@ export const Sidebar: FC = () => {
     localStorage.clear();
     dispatch(logOut());
     navigate("/login");
-    console.log("log out");
   };
 
-  const menuItems = [
-    { key: "1", icon: <PieChartOutlined />, label: "Option 1" },
-    { key: "2", icon: <DesktopOutlined />, label: "Option 2" },
-    { key: "3", icon: <ContainerOutlined />, label: "Option 3" },
-    {
-      key: "sub1",
-      label: "Navigation One",
-      icon: <MailOutlined />,
-      children: [
-        { key: "5", label: "Option 5" },
-        { key: "6", label: "Option 6" },
-        { key: "7", label: "Option 7" },
-        { key: "8", label: "Option 8" },
-      ],
-    },
-    {
-      key: "sub2",
-      label: "Navigation Two",
-      icon: <AppstoreOutlined />,
-      children: [
-        { key: "9", label: "Option 9" },
-        { key: "10", label: "Option 10" },
-        {
-          key: "sub3",
-          label: "Submenu",
-          children: [
-            { key: "11", label: "Option 11" },
-            { key: "12", label: "Option 12" },
-          ],
-        },
-      ],
-    },
-  ];
+  const menuLinks = useMemo(
+    () =>
+      sideBarLinks?.map(({ path, icon: Icon, name }) => ({
+        key: path,
+        label: t(name as string),
+        icon: Icon ? <Icon className="h-6 w-6" /> : undefined,
+      })),
+    [sideBarLinks?.length, i18n.language],
+  );
 
   const items: DropDownProps["menu"]["items"] = [
     {
@@ -111,11 +77,7 @@ export const Sidebar: FC = () => {
         className={`${isCollapsed ? "w-20" : "w-72"} dark:bg-dark-theme flex flex-col gap-4 bg-[#355872] transition-[width] duration-500`}
       >
         <div className="flex items-center justify-between gap-2 overflow-hidden border-b border-white/10 p-4 pr-2">
-          {!isCollapsed && (
-            <h1 className="text-2xl font-extralight text-nowrap text-white">
-              MEDIA HUB
-            </h1>
-          )}
+          {!isCollapsed && <h1 className="text-2xl font-extralight text-nowrap text-white">MEDIA HUB</h1>}
           <Button
             className="ml-auto shadow-none!"
             type="primary"
@@ -136,16 +98,12 @@ export const Sidebar: FC = () => {
           className="flex-1"
           inlineCollapsed={isCollapsed}
           tooltip={isCollapsed ? { placement: "left" } : false}
-          items={menuItems}
+          items={menuLinks}
         />
         <div className="mt-auto flex flex-col gap-4 border-t border-white/10 p-4">
           <ChangeLocale isLarge />
           <Dropdown menu={{ items }} trigger={["click"]}>
-            <Button
-              className="px-2! py-6! shadow-none!"
-              size="large"
-              type="primary"
-            >
+            <Button className="px-2! py-6! shadow-none!" size="large" type="primary">
               <div className="flex items-center gap-2">
                 <FiUser className="rounded-md bg-white/10 p-2 text-4xl" />
                 {!isCollapsed && (

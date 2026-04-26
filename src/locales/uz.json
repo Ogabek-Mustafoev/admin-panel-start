@@ -39,7 +39,10 @@
     "userInformation": "Foydalanuvchi ma'lumotlari",
     "saveChanges": "O'zgarishlarni saqlash",
     "colors": "Ranglar",
-    "image": "Rasm"
+    "image": "Rasm",
+    "search": "Qidirish",
+    "category": "Kategoriya",
+    "allCategories": "Barcha kategoriyalar"
   },
   "notifications": {
     "requestProcessing": "So'rov bajarilmoqda",

@@ -59,9 +59,8 @@ export const useProfileProps = () => {
     dispatch(setBgColor(null));
   };
 
-  const availableBgColors = theme !== "light"
-    ? PREDEFINED_BG_COLORS.dark
-    : PREDEFINED_BG_COLORS.light;
+  const availableBgColors =
+    theme !== "light" ? PREDEFINED_BG_COLORS.dark : PREDEFINED_BG_COLORS.light;
 
   return {
     t,

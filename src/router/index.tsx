@@ -4,6 +4,7 @@ import type { IRoute } from "@/types";
 import { useFilterRoutes } from "@/hooks";
 import { authRoutes } from "@/modules/auth";
 import { AuthLayout, BaseLayout } from "@/layouts";
+import { ProfilePage } from "@/modules/profile/page";
 
 const renderRoute = (routes: IRoute[]) =>
   routes.map(({ path, component: Component }) => (
@@ -16,6 +17,7 @@ export const AuthorizedRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<BaseLayout />}>
+        <Route path="/profile" element={<ProfilePage />} />
         {renderRoute(filteredRoutes)}
       </Route>
     </Routes>

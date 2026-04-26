@@ -1,4 +1,4 @@
 import type { IRoute } from "@/types";
-import { profileRoute } from "@/modules/profile";
+import { categoryRoute } from "@/modules/category";
 
-export const routes: IRoute[] = [profileRoute];
+export const routes: IRoute[] = [categoryRoute];

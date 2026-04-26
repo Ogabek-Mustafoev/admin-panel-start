@@ -15,11 +15,19 @@ export interface IInitialData {
 
 export type TTheme = "light" | "dark" | "system";
 
-export interface IMeta {
-  page: number;
+export interface IMeta<T = any> {
+  current_page: number;
+  first_page_url: string;
+  from: number;
+  data: T;
+  last_page: number;
+  last_page_url: string;
+  next_page_url: string | null;
+  path: string;
+  per_page: number;
+  prev_page_url: string | null;
+  to: number;
   total: number;
-  pageSize: number;
-  pageCount: number;
 }
 
 export interface IResponse<T = any> {
