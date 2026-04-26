@@ -12,19 +12,23 @@ export const loginUserSchema = yup.object({
   password: yup.string().required("requiredPassword"),
 });
 
-export const userSchema = yup.object({
-  ...loginUserSchema.fields,
+const userUpdateSchema = yup.object({
   name: yup.string().required("requiredName"),
   surname: yup.string().required("requiredSurname"),
   email: yup.string().email("invalidEmail").required("requiredEmail"),
   phone: yup.string().matches(/^\d{12}$/, "invalidPhone").required("requiredPhone"),
 });
 
+export const userSchema = yup.object({
+  ...userUpdateSchema.fields,
+  ...loginUserSchema.fields
+});
+
 export type TLoginUserField = yup.InferType<typeof loginUserSchema>;
-export type TUserField = yup.InferType<typeof userSchema>;
+export type TUserField = yup.InferType<typeof userUpdateSchema>;
 
 export const loginUserResolver = yupResolver(loginUserSchema);
-export const userResolver = yupResolver(userSchema);
+export const userUpdateResolver = yupResolver(userUpdateSchema);
 
 export interface IUser extends IInitialData, TUserField {
   email_verified_at?: string;
