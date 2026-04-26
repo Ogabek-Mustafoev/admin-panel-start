@@ -9,7 +9,7 @@ export const PageLoader: FC<{ className?: string }> = ({
 
   return (
     <div
-      className={`${className} flex items-center justify-center overflow-hidden`}
+      className={`${className} bg-amber-50 dark:bg-[#222222] flex items-center justify-center overflow-hidden`}
     >
       <img
         src={loadingSvg}
