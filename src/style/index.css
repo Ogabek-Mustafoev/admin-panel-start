@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-/* Screens (breakpoints) */
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   --breakpoint-xxs: 0px;
   --breakpoint-xsm: 420px;
@@ -22,14 +23,15 @@
   --color-dark-theme: #141414;
 }
 
-
-
-/* Dark mode */
-@variant dark (&:where(.dark, .dark *));
-
 /* Disable container plugin */
 @layer utilities {
   .container {
     all: unset;
+  }
+}
+
+@layer components {
+  .bg-theme {
+    @apply bg-white/30! dark:bg-black/30!
   }
 }

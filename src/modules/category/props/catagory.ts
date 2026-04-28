@@ -1,6 +1,6 @@
 import { STATUSES } from "@/constants/data";
-import { useInfiniteFetch, useQueryParams } from "@/hooks";
-import type { IMeta, IResponse, TLocale } from "@/types";
+import { useFetchData, useQueryParams } from "@/hooks";
+import type { IResponse, TLocale } from "@/types";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ICategory } from "@/schema/category";
@@ -15,7 +15,7 @@ export const useCategoryProps = () => {
   const params = getQueryParams();
 
   const fetchingProps = {
-    url: `/_a/categories`,
+    url: `/_a/categories/tree`,
     params: {
       page: 1,
       limit: 10,
@@ -23,11 +23,7 @@ export const useCategoryProps = () => {
     },
   };
 
-  const { data, isFetching, fetchNextPage } = useInfiniteFetch<IResponse<IMeta<ICategory[]>>>(fetchingProps);
-
-  const categories = useMemo(() => {
-    return data?.pages?.flatMap(({ data }) => data?.data);
-  }, [isFetching, JSON.stringify(params)]);
+  const { data, isLoading } = useFetchData<IResponse<ICategory[]>>(fetchingProps);
 
   const statuses = useMemo(() => {
     return STATUSES.map(({ label, value }) => ({
@@ -72,8 +68,8 @@ export const useCategoryProps = () => {
 
   return {
     t,
-    categories,
-    isFetching,
+    isLoading,
+    categories: data?.data,
     fetchingProps,
     statuses,
     onCancel,

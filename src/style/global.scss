@@ -74,6 +74,7 @@ html.dark {
 
 .ant-table,
 .ant-card,
+.blur-bg,
 .ant-modal-content,
 .ant-drawer-content,
 .ant-popover-inner,
@@ -84,6 +85,21 @@ html.dark {
 .ant-segmented-item-selected {
   backdrop-filter: blur(15px) saturate(180%);
   -webkit-backdrop-filter: blur(15px) saturate(180%);
+}
+
+.category-tree {
+  position: relative;
+  z-index: 0;
+}
+
+.category-tree::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  z-index: -1;
+  border-radius: inherit; 
 }
 
 ::-webkit-scrollbar {
