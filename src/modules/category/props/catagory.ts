@@ -1,23 +1,29 @@
 import { STATUSES } from "@/constants/data";
 import { useInfiniteFetch, useQueryParams } from "@/hooks";
-import { type TCategoryData } from "@/schema/category";
-import type { TLocale } from "@/types";
-import { useMemo } from "react";
+import type { IMeta, IResponse, TLocale } from "@/types";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { ICategory } from "@/schema/category";
 
 export const useCategoryProps = () => {
   const { t, i18n } = useTranslation();
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenForm, setIsOpenForm] = useState(false);
+  const [category, setCategory] = useState<ICategory>();
   const { getQueryParams, setQueryParams } = useQueryParams();
+
   const params = getQueryParams();
-  const { data, isFetching } = useInfiniteFetch<TCategoryData>({
+
+  const fetchingProps = {
     url: `/_a/categories`,
     params: {
       page: 1,
       limit: 10,
       ...params,
     },
-  });
+  };
+
+  const { data, isFetching, fetchNextPage } = useInfiniteFetch<IResponse<IMeta<ICategory[]>>>(fetchingProps);
 
   const categories = useMemo(() => {
     return data?.pages?.flatMap(({ data }) => data?.data);
@@ -29,6 +35,24 @@ export const useCategoryProps = () => {
       label: t(label),
     }));
   }, [i18n.language]);
+
+  const handleClick = (category?: ICategory, isDelete?: boolean) => {
+    setCategory(category);
+    if (isDelete) {
+      setIsOpen(true);
+    } else {
+      setIsOpenForm(true);
+    }
+  };
+
+  const onCancel = (isDelete?: boolean) => {
+    setCategory(undefined);
+    if (isDelete) {
+      setIsOpen(false);
+    } else {
+      setIsOpenForm(false);
+    }
+  };
 
   const filterBySearch = (query: string) => {
     if (query) {
@@ -50,11 +74,17 @@ export const useCategoryProps = () => {
     t,
     categories,
     isFetching,
+    fetchingProps,
     statuses,
+    onCancel,
     locale: i18n.language as TLocale,
     query: params.query,
     filterBySearch,
     is_active: params?.is_active ? JSON.parse(params.is_active) : null,
     filterByStatus,
+    handleClick,
+    isOpen,
+    isOpenForm,
+    category,
   };
 };

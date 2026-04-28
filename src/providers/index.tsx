@@ -1,4 +1,4 @@
-import { type FC, useMemo } from "react";
+import { type FC } from "react";
 import type { IChildren, TLocale } from "@/types";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -21,21 +21,18 @@ const queryClient = new QueryClient({
   },
 });
 
+const antLocales: Record<TLocale, Locale> = {
+  uz: uzAntLocale,
+  en: enAntLocale,
+  ru: ruAntLocale,
+};
+
 export const Providers: FC<IChildren> = ({ children }) => {
   const { i18n } = useTranslation();
   const { theme, primaryColor } = useTheme();
 
   const isLight = theme === "light";
   const g = isLight ? GLASS.light : GLASS.dark;
-
-  const antLocales: Record<TLocale, Locale> = useMemo(
-    () => ({
-      uz: uzAntLocale,
-      en: enAntLocale,
-      ru: ruAntLocale,
-    }),
-    [],
-  );
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -53,6 +50,9 @@ export const Providers: FC<IChildren> = ({ children }) => {
             boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.1)",
           },
           components: {
+            Button: {
+              borderRadius: 7,
+            },
             Card: {
               colorBorderSecondary: g.border,
             },
@@ -64,6 +64,7 @@ export const Providers: FC<IChildren> = ({ children }) => {
               contentBg: g.bgElevated,
               headerBg: "transparent",
               footerBg: "transparent",
+              colorBorderSecondary: g.border,
             },
             Segmented: {
               itemSelectedBg: g.menuSelectedBg,
@@ -105,10 +106,7 @@ export const Providers: FC<IChildren> = ({ children }) => {
         <BrowserRouter>
           {children}
           {import.meta.env.MODE === "development" && (
-            <ReactQueryDevtools
-              buttonPosition="bottom-right"
-              initialIsOpen={false}
-            />
+            <ReactQueryDevtools buttonPosition="bottom-right" initialIsOpen={false} />
           )}
           <ToastContainer theme={theme === "dark" ? "dark" : "light"} />
         </BrowserRouter>

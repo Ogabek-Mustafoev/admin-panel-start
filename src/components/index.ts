@@ -6,3 +6,5 @@ export { DatePicker } from "./fields/date-picker";
 export { PageLoader } from "./page-loader";
 export { DeleteModal } from "./delete-modal";
 export { CustomSelect } from "./fields/select";
+export { UploadFile } from "./fields/upload-file";
+export { CustomSwitch } from "./fields/switch";

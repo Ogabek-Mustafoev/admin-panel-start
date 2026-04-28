@@ -10,10 +10,25 @@
     "surname": "Last Name",
     "save": "Save",
     "cancel": "Cancel",
+    "delete": "Delete",
     "confirmLogout": "Are you sure you want to log out?",
     "status": "Status",
     "active": "Active",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "addCategory": "Add category",
+    "editCategory": "Edit category",
+    "deletingData": "Deleting data",
+    "confirmDeleting": "Are you sure you want to delete?",
+    "mobilePhoto": "Mobile photo",
+    "uploadImg": "Upload image",
+    "uploadVideo": "Upload video"
+  },
+  "table": {
+    "name": "Name",
+    "photo": "Photo",
+    "created_at": "Created at",
+    "updated_at": "Updated at",
+    "actions": "Actions"
   },
   "errors": {
     "requiredContact": "Contact is required",
@@ -25,7 +40,8 @@
     "requiredPhone": "Phone number is required",
     "requiredEmail": "Email is required",
     "invalidEmail": "Invalid email",
-    "invalidPhone": "Invalid phone"
+    "invalidPhone": "Invalid phone",
+    "requiredField": "This field is required"
   },
   "pages": {
     "enter": "Enter",

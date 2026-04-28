@@ -8,9 +8,14 @@ export type TDynamic = string | number | boolean | object;
 export type TObject<T = TDynamic> = Record<string, T>;
 
 export interface IInitialData {
-  id: string;
+  id: number;
   created_at: string;
   updated_at: string;
+}
+
+export interface IFileData {
+  url: string;
+  filename: string;
 }
 
 export type TTheme = "light" | "dark" | "system";

@@ -10,10 +10,25 @@
     "surname": "Familiya",
     "save": "Saqlash",
     "cancel": "Bekor qilish",
+    "delete": "O'chirish",
     "confirmLogout": "Tizimdan chiqishga ishonchingiz komilmi?",
     "status": "Holat",
     "active": "Faol",
-    "inactive": "Faol emas"
+    "inactive": "Faol emas",
+    "addCategory": "Kategoriya qo'shish",
+    "editCategory": "Kategoriya tahrirlash",
+    "deletingData": "Ma'lumot o'chirilmoqda",
+    "confirmDeleting": "Ma'lumot o'chirishga ishonchingiz komilmi?",
+    "mobilePhoto": "Mobil foto",
+    "uploadImg": "Rasm yuklash",
+    "uploadVideo": "Video yuklash"
+  },
+  "table": {
+    "name": "Nomi",
+    "photo": "Rasm",
+    "created_at": "Yaratilgan vaqti",
+    "updated_at": "Tahrirlangan vaqti",
+    "actions": "Amallar"
   },
   "errors": {
     "requiredContact": "Aloqa majburiy",
@@ -25,7 +40,8 @@
     "requiredPhone": "Telefon raqami majburiy",
     "requiredEmail": "Email majburiy",
     "invalidEmail": "Noto'g'ri elektron pochta",
-    "invalidPhone": "Noto'g'ri telefon raqami"
+    "invalidPhone": "Noto'g'ri telefon raqami",
+    "requiredField": "Ushbu maydon to'ldirilishi majburiy"
   },
   "pages": {
     "enter": "Kirish",

@@ -10,10 +10,25 @@
     "surname": "Фамилия",
     "save": "Сохранить",
     "cancel": "Отменить",
+    "delete": "Удалить",
     "confirmLogout": "Вы уверены, что хотите выйти?",
     "status": "Статус",
     "active": "Активный",
-    "inactive": "Неактивный"
+    "inactive": "Неактивный",
+    "addCategory": "Добавить категорию",
+    "editCategory": "Редактировать категорию",
+    "deletingData": "Удаление данных",
+    "confirmDeleting": "Вы уверены, что хотите удалить?",
+    "mobilePhoto": "Мобильное фото",
+    "uploadImg": "Загрузить фото",
+    "uploadVideo": "Загрузить видео"
+  },
+  "table": {
+    "name": "Название",
+    "photo": "Фото",
+    "created_at": "Дата создания",
+    "updated_at": "Дата обновления",
+    "actions": "Действия"
   },
   "errors": {
     "requiredContact": "Контакт обязателен",
@@ -25,7 +40,8 @@
     "requiredPhone": "Номер телефона обязателен",
     "requiredEmail": "Email обязателен",
     "invalidEmail": "Неверный адрес электронной почты",
-    "invalidPhone": "Неверный номер телефона"
+    "invalidPhone": "Неверный номер телефона",
+    "requiredField": "Это поле обязательно для заполнения"
   },
   "pages": {
     "enter": "Войти",

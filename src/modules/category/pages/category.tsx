@@ -1,53 +1,125 @@
-import { Image, Input, Select, Skeleton, Table } from "antd";
+import { Button, Image, Input, Select, Skeleton, Table, Tag } from "antd";
 import { useCategoryProps } from "../props/catagory";
-import { IoMdSearch } from "react-icons/io";
+import { IoMdAdd, IoMdSearch } from "react-icons/io";
 import { debounce } from "lodash";
 import type { ICategory } from "@/schema/category";
 import type { TableColumnsType } from "antd";
+import { MdDeleteForever, MdEditSquare } from "react-icons/md";
+import dayjs from "dayjs";
+import { useMemo } from "react";
+import { DeleteModal } from "@/components";
+import { CatalogForm } from "../forms";
 
 export const CategoryPage = () => {
-  const { isFetching, query, categories, t, statuses, filterBySearch, is_active, filterByStatus, locale } =
-    useCategoryProps();
+  const {
+    isFetching,
+    query,
+    categories,
+    t,
+    isOpenForm,
+    statuses,
+    filterBySearch,
+    is_active,
+    filterByStatus,
+    locale,
+    fetchingProps,
+    isOpen,
+    category,
+    onCancel,
+    handleClick,
+  } = useCategoryProps();
 
-  const tableColumns: TableColumnsType<ICategory> = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
-    {
-      key: "img",
-      width: 120,
-      dataIndex: "image_url",
-      title: t("photo", { ns: "table" }),
-      render: image_url =>
-        image_url ? (
-          <Image
-            alt="logo"
-            src={image_url}
-            className="h-full! w-full! object-cover"
-          />
-        ) : (
-          <Skeleton.Image  classNames={{content: "w-14! h-12! bg-black/30!"}} />
+  const tableColumns: TableColumnsType<ICategory> = useMemo(
+    () => [
+      {
+        title: "ID",
+        dataIndex: "id",
+        key: "id",
+        width: 80,
+      },
+      {
+        key: "img",
+        width: 120,
+        dataIndex: "image_url",
+        title: t("photo", { ns: "table" }),
+        render: image_url =>
+          image_url ? (
+            <Image alt="logo" src={image_url} classNames={{ root: "h-14!", image: "h-full! w-auto!" }} />
+          ) : (
+            <Skeleton.Image classNames={{ content: "w-14! h-12! bg-black/30!" }} />
+          ),
+      },
+      {
+        key: "mobile_image_url",
+        width: 120,
+        dataIndex: "mobile_image_url",
+        title: t("mobilePhoto"),
+        render: image_url =>
+          image_url ? (
+            <Image alt="logo" src={image_url} classNames={{ root: "h-14!", image: "h-full! w-auto!" }} />
+          ) : (
+            <Skeleton.Image classNames={{ content: "w-14! h-12! bg-black/30!" }} />
+          ),
+      },
+      {
+        title: t("name", { ns: "table" }),
+        dataIndex: "name",
+        key: "name",
+        render: (_, { name }) => <span>{name?.[locale]}</span>,
+      },
+      {
+        title: t("status"),
+        dataIndex: "is_active",
+        width: 120,
+        key: "is_active",
+        render: (_, { is_active }) => (
+          <Tag className="text-base! font-medium" color={is_active ? "success" : "error"}>
+            {is_active ? t("active") : t("inactive")}
+          </Tag>
         ),
-    },
-    {
-      title: t("name"),
-      dataIndex: "name",
-      key: "name",
-      render: (_, { name }) => <span>{name?.[locale]}</span>,
-    },
-    {
-      title: t("status"),
-      dataIndex: "is_active",
-      key: "is_active",
-      render: (_, { is_active }) => <span className="">{is_active ? t("active") : t("inactive")}</span>,
-    },
-  ];
+      },
+      {
+        key: "created_at",
+        dataIndex: "created_at",
+        title: t("created_at", { ns: "table" }),
+        render: date => dayjs(date).format("DD-MMM, YYYY | HH:mm"),
+      },
+      {
+        key: "updated_at",
+        dataIndex: "updated_at",
+        title: t("updated_at", { ns: "table" }),
+        render: date => dayjs(date).format("DD-MMM, YYYY | HH:mm"),
+      },
+      {
+        key: "actions",
+        title: <p className="text-center">{t("actions", { ns: "table" })}</p>,
+        render: (category: ICategory) => (
+          <div className="flex items-center justify-center gap-2">
+            <Button
+              type="primary"
+              size="medium"
+              className="text-lg"
+              icon={<MdEditSquare className="text-lg" />}
+              onClick={() => handleClick(category)}
+            />
+            <Button
+              size="medium"
+              danger
+              type="primary"
+              className="text-lg"
+              icon={<MdDeleteForever className="text-lg" />}
+              onClick={() => handleClick(category, true)}
+            />
+          </div>
+        ),
+      },
+    ],
+    [locale],
+  );
 
   return (
     <section className="relative overflow-hidden">
-      <div className="sticky top-0 z-10 flex items-center justify-between">
+      <div className="sticky top-0 z-10 flex items-center justify-between gap-2">
         <Input
           defaultValue={query}
           className="max-w-sm min-w-40 flex-1"
@@ -60,15 +132,18 @@ export const CategoryPage = () => {
           value={is_active}
           options={statuses}
           showSearch={false}
-          className="min-w-60"
+          className="w-48"
           loading={false}
           onChange={filterByStatus}
           placeholder={t("status")}
         />
+        <Button onClick={() => handleClick()} icon={<IoMdAdd />} type="primary" className="ml-auto">
+          {t("addCategory")}
+        </Button>
       </div>
-      <div className="mt-4 flex items-center mb-6 gap-2">
+      <div className="mt-4 mb-6 flex items-center gap-2">
         <h2 className="text-2xl font-medium">{t("allCategories", { ns: "pages" })}:</h2>
-        <p className="bg-primary rounded-lg px-2 py-1 font-medium">{categories?.length ?? 0}</p>
+        <p className="bg-primary rounded-lg px-2 py-1 font-medium text-white">{categories?.length ?? 0}</p>
       </div>
       <Table
         bordered
@@ -76,9 +151,21 @@ export const CategoryPage = () => {
         pagination={false}
         loading={isFetching}
         columns={tableColumns}
-        dataSource={[...(categories || []), ...(categories || []), ...(categories || [])]}
-        // onScroll={handleTableScroll}
-        scroll={{ y: window.innerHeight - 225, x: 800 }}
+        dataSource={categories}
+        scroll={{ y: window.innerHeight - 225, x: 842 }}
+      />
+      <CatalogForm
+        open={isOpenForm}
+        onAction={onCancel}
+        category={category}
+        isFetching={isFetching}
+        fetchingProps={fetchingProps}
+      />
+      <DeleteModal
+        isOpen={isOpen}
+        onCancel={onCancel}
+        fetchProps={fetchingProps}
+        url={`/_a/categories/${category?.id}`}
       />
     </section>
   );
