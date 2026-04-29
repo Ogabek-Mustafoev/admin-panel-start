@@ -3,7 +3,7 @@ import { useCategoryProps } from "../props/catagory";
 import { IoMdAdd, IoMdSearch } from "react-icons/io";
 import { debounce } from "lodash";
 import { DeleteModal } from "@/components";
-import { CatalogForm } from "../forms";
+import { CatalogForm } from "../component/form";
 import { CategoryTree } from "../component/category-tree";
 import type { ICategory } from "@/schema/category";
 

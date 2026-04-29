@@ -171,7 +171,7 @@ export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
           <Space.Addon
             role="button"
             onClick={handleCopy}
-            className="bg-primary! flex cursor-pointer items-center justify-center transition-all duration-100 active:scale-95"
+            className="bg-primary! text-white! flex cursor-pointer items-center justify-center transition-all duration-100 active:scale-95"
           >
             <FaCopy />
           </Space.Addon>
