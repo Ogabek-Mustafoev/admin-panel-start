@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import {
   DndContext,
   DragOverlay,
@@ -15,7 +15,6 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { FolderOutlined, TagOutlined } from "@ant-design/icons";
 
 import type { ICategory } from "@/schema/category";
-import { mockCategories } from "@/constants/data";
 import {
   cloneTree,
   removeNode,
@@ -23,33 +22,46 @@ import {
   insertAtRoot,
   findNode,
   flattenTree,
-  updateNode,
-  deleteNode,
   fromSortableId,
   toSortableId,
 } from "../tree-utils";
 
 import { RenderTree } from "../render-tree";
 
-export const CategoryTree: React.FC = () => {
-  const [categories, setCategories] = useState<ICategory[]>(cloneTree(mockCategories));
-  const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set([1, 2, 6, 9, 10, 13, 14]));
+interface CategoryTreeProps {
+  isFetching?: boolean;
+  categoriesData?: ICategory[];
+  activeCategoryId?: number;
+  onAddChild?: (item: ICategory) => void;
+  onEdit?: (item: ICategory) => void;
+  onDelete?: (item: ICategory) => void;
+}
 
-  // Modal state
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalParent, setModalParent] = useState<ICategory | null>(null);
-  const [editingItem, setEditingItem] = useState<ICategory | null>(null);
+export const CategoryTree: React.FC<CategoryTreeProps> = ({
+  isFetching,
+  categoriesData,
+  activeCategoryId,
+  onAddChild,
+  onEdit,
+  onDelete,
+}) => {
+  const [categories, setCategories] = useState<ICategory[]>([]);
 
-  // DnD state
+  useEffect(() => {
+    if (categoriesData) {
+      setCategories(cloneTree(categoriesData));
+    }
+  }, [isFetching]);
+
+  const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
+
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null);
 
-  // Timer ref for expand-on-hover
   const expandTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }));
 
-  // ── Expand/collapse ──
   const handleToggle = useCallback((id: number) => {
     setExpandedIds(prev => {
       const next = new Set(prev);
@@ -59,46 +71,21 @@ export const CategoryTree: React.FC = () => {
     });
   }, []);
 
-  // ── Modal handlers ──
-  const openAddRoot = () => {
-    setModalParent(null);
-    setEditingItem(null);
-    setModalOpen(true);
+  const handleAddChild = (item: ICategory) => {
+    onAddChild?.(item);
   };
 
-  const openAddChild = (item: ICategory) => {
-    setModalParent(item);
-    setEditingItem(null);
-    setModalOpen(true);
-  };
-
-  const openEdit = (item: ICategory) => {
-    setEditingItem(item);
-    setModalParent(null);
-    setModalOpen(true);
+  const handleEdit = (item: ICategory) => {
+    onEdit?.(item);
   };
 
   const handleDelete = (id: number) => {
-    setCategories(prev => deleteNode(cloneTree(prev), id));
+    const node = findNode(categories, id);
+    if (node) {
+      onDelete?.(node);
+    }
   };
 
-  const handleModalSubmit = (cat: ICategory) => {
-    setCategories(prev => {
-      const tree = cloneTree(prev);
-      if (editingItem) {
-        return updateNode(tree, cat.id, cat);
-      }
-      if (modalParent) {
-        const result = insertAsChild(tree, modalParent.id, cat);
-        setExpandedIds(e => new Set([...e, modalParent.id]));
-        return result;
-      }
-      return [cat, ...tree];
-    });
-    setModalOpen(false);
-  };
-
-  // ── DnD ──
   const handleDragStart = (event: DragStartEvent) => {
     setActiveId(event.active.id);
   };
@@ -193,20 +180,21 @@ export const CategoryTree: React.FC = () => {
                 expandedIds={expandedIds}
                 activeId={activeId}
                 overItemId={overId}
+                activeCategoryId={activeCategoryId}
                 onToggle={handleToggle}
-                onAddChild={openAddChild}
-                onEdit={openEdit}
+                onAddChild={handleAddChild}
+                onEdit={handleEdit}
                 onDelete={handleDelete}
               />
             </div>
           </SortableContext>
           <DragOverlay dropAnimation={null}>
             {activeItem && (
-              <div className="bg-theme blur-bg flex items-center gap-2 rounded-lg px-3 py-2 opacity-95 shadow-xl">
+              <div className="bg-themeBge blur-bg flex items-center gap-2 rounded-lg px-3 py-2 opacity-95 shadow-xl">
                 {activeItem.children.length > 0 ? (
-                  <FolderOutlined style={{ fontSize: 16, color: "#f59e0b" }} />
+                  <FolderOutlined className="text-orange-500!" />
                 ) : (
-                  <TagOutlined style={{ fontSize: 14, color: "#818cf8" }} />
+                  <TagOutlined className="text-blue-600! dark:text-blue-500!" />
                 )}
                 <span className="text-sm font-medium">{activeItem.name.uz}</span>
               </div>

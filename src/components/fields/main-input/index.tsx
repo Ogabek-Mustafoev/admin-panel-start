@@ -72,14 +72,7 @@ export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
           />
         );
       case "otp":
-        return (
-          <Input.OTP
-            status={error?.message ? "error" : undefined}
-            {...field}
-            size={size}
-            disabled={disabled}
-          />
-        );
+        return <Input.OTP status={error?.message ? "error" : undefined} {...field} size={size} disabled={disabled} />;
       case "number":
         return (
           <InputNumber
@@ -95,7 +88,7 @@ export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
             formatter={formatter}
             placeholder={placeholder}
             status={error?.message ? "error" : undefined}
-            onChange={(value) => {
+            onChange={value => {
               if (isFunction(setValue)) {
                 field.onChange(setValue(value));
               } else {
@@ -114,14 +107,8 @@ export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
             disabled={disabled}
             placeholder={placeholder}
             status={error?.message ? "error" : undefined}
-            value={
-              field?.value
-                ? format
-                  ? dayjs(field?.value, format)
-                  : dayjs(field?.value)
-                : undefined
-            }
-            onChange={(time) => {
+            value={field?.value ? (format ? dayjs(field?.value, format) : dayjs(field?.value)) : undefined}
+            onChange={time => {
               if (format) {
                 field.onChange(time?.format(format));
               } else {
@@ -154,17 +141,12 @@ export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
   return (
     <div>
       {label && (
-        <p
-          className={`${disabled && "cursor-not-allowed opacity-50"} mb-1.5 font-medium`}
-        >
-          {label}{" "}
-          {required && <span className="font-bold text-red-500">*</span>}
+        <p className={`${disabled && "cursor-not-allowed opacity-50"} mb-1.5 font-medium`}>
+          {label} {required && <span className="font-bold text-red-500">*</span>}
         </p>
       )}
       {renderInput()}
-      {error?.message && (
-        <p className="text-xs text-red-500">{t(error.message)}</p>
-      )}
+      {error?.message && <p className="text-xs text-red-500">{t(error.message)}</p>}
     </div>
   );
 };

@@ -82,7 +82,7 @@ export const UploadFile = <T extends FieldValues>(props: IUploadImg<T>) => {
         >
           <input {...getInputProps()} />
           <div className="m-auto mt-3 flex w-max flex-col items-center justify-center">
-            <IoCloudUpload className="h-10 w-10 text-neutral-500" />
+            <IoCloudUpload className="h-10 w-10 text-neutral-500 dark:text-neutral-400" />
             <p className="line-clamp-1 break-all">{t(isVideo ? "uploadVideo" : "uploadImg")}</p>
           </div>
         </div>
@@ -101,7 +101,7 @@ export const UploadFile = <T extends FieldValues>(props: IUploadImg<T>) => {
               src={playImg}
             />
           ) : (
-            <Image classNames={{root: "h-full! w-auto", image: "h-full! w-auto!"}} src={field?.value} />
+            <Image classNames={{ root: "h-full! w-auto", image: "h-full! w-auto!" }} src={field?.value} />
           )
         ) : isVideo ? (
           <MdVideoLibrary className="h-full w-28 rounded-lg bg-neutral-200 p-6 text-neutral-500 dark:bg-neutral-800" />

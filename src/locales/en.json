@@ -61,7 +61,9 @@
     "image": "Image",
     "search": "Search",
     "category": "Category",
-    "allCategories": "All categories"
+    "allCategories": "All categories",
+    "selectCategoryToEdit": "Select a category from the category tree on the left to edit the settings, or add a new one",
+    "noCategories": "Categories not found"
   },
   "notifications": {
     "requestProcessing": "Request is processing...",

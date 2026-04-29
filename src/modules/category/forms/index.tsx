@@ -1,5 +1,5 @@
 import { type FC, useEffect, useMemo } from "react";
-import { Button, Modal, type ModalProps } from "antd";
+import { Button } from "antd";
 import type { IFetchingProps } from "@/types";
 import { categoryResolver, type ICategory, type TCategoryField } from "@/schema/category";
 import { useTranslation } from "react-i18next";
@@ -8,14 +8,14 @@ import { useForm, type Resolver } from "react-hook-form";
 import { CustomSelect, MainInput, UploadFile } from "@/components";
 import { STATUSES } from "@/constants/data";
 
-interface ICatalogForm extends ModalProps {
+interface ICatalogForm {
   fetchingProps?: IFetchingProps;
   onAction: () => void;
   isFetching?: boolean;
   category?: ICategory;
 }
 
-export const CatalogForm: FC<ICatalogForm> = ({ fetchingProps, isFetching, onAction, category, ...rest }) => {
+export const CatalogForm: FC<ICatalogForm> = ({ fetchingProps, isFetching, onAction, category }) => {
   const { t, i18n } = useTranslation();
   const { mutate, isPending } = useMutate();
 
@@ -23,9 +23,15 @@ export const CatalogForm: FC<ICatalogForm> = ({ fetchingProps, isFetching, onAct
     resolver: categoryResolver as Resolver<TCategoryField>,
   });
 
-  const resetDefault = () => {
+  const resetDefault = (values?: Partial<TCategoryField>) => {
     unregister();
-    reset({ name: { en: "", ru: "", uz: "" }, image_url: "", mobile_image_url: "", parent_id: null, is_active: true });
+    reset({
+      name: { en: "", ru: "", uz: "" },
+      image_url: "",
+      mobile_image_url: "",
+      parent_id: values?.parent_id ?? null,
+      is_active: true,
+    });
   };
 
   const onClose = () => {
@@ -54,68 +60,61 @@ export const CatalogForm: FC<ICatalogForm> = ({ fetchingProps, isFetching, onAct
     if (category?.id) {
       reset(category);
     } else {
-      resetDefault();
+      resetDefault({ parent_id: category?.parent_id });
     }
-  }, [isFetching, category?.id]);
+  }, [isFetching, category?.id, category?.parent_id]);
 
   return (
-    <Modal
-      {...rest}
-      width="500px"
-      footer={null}
-      onCancel={onClose}
-      title={<h1 className="mb-4 text-lg font-medium">{t(category?.id ? "editCategory" : "addCategory")}</h1>}
-    >
-      <form onSubmit={onSubmit} className="flex flex-col gap-2">
-        <div className={category?.id ? "grid grid-cols-2 gap-2" : "grid gap-2"}>
-          <MainInput<TCategoryField>
+    <form onSubmit={onSubmit} className="mt-3 flex flex-col gap-2">
+      <div className={`${category?.id ? "grid-cols-2" : "grid-cols-3"} blur-bg bg-themeBg grid gap-3 rounded-2xl p-3`}>
+        <MainInput<TCategoryField>
+          required
+          name="name.uz"
+          size="large"
+          control={control}
+          label={t("name", { ns: "table", lng: "uz" })}
+          placeholder={t("name", { ns: "table", lng: "uz" })}
+        />
+        <MainInput<TCategoryField>
+          required
+          name="name.ru"
+          size="large"
+          control={control}
+          label={t("name", { ns: "table", lng: "ru" })}
+          placeholder={t("name", { ns: "table", lng: "ru" })}
+        />
+        <MainInput<TCategoryField>
+          required
+          name="name.en"
+          size="large"
+          control={control}
+          label={t("name", { ns: "table", lng: "en" })}
+          placeholder={t("name", { ns: "table", lng: "en" })}
+        />
+        {category?.id && (
+          <CustomSelect<TCategoryField>
             required
-            name="name.uz"
-            size="large"
+            isSaveOption={false}
+            name="is_active"
             control={control}
-            label={t("name", { ns: "table", lng: "uz" })}
-            placeholder={t("name", { ns: "table", lng: "uz" })}
+            staticData={statuses}
+            label={t("status")}
+            placeholder={t("status")}
           />
-          <MainInput<TCategoryField>
-            required
-            name="name.ru"
-            size="large"
-            control={control}
-            label={t("name", { ns: "table", lng: "ru" })}
-            placeholder={t("name", { ns: "table", lng: "ru" })}
-          />
-          <MainInput<TCategoryField>
-            required
-            name="name.en"
-            size="large"
-            control={control}
-            label={t("name", { ns: "table", lng: "en" })}
-            placeholder={t("name", { ns: "table", lng: "en" })}
-          />
-          {category?.id && (
-            <CustomSelect<TCategoryField>
-              required
-              isSaveOption={false}
-              name="is_active"
-              control={control}
-              staticData={statuses}
-              label={t("status")}
-              
-              placeholder={t("status")}
-            />
-          )}
-        </div>
+        )}
+      </div>
+      <div className="blur-bg bg-themeBg flex flex-col gap-3 rounded-2xl p-3">
         <UploadFile<TCategoryField> required name="image_url" control={control} label={t("image", { ns: "pages" })} />
         <UploadFile<TCategoryField> required name="mobile_image_url" control={control} label={t("mobilePhoto")} />
-        <div className="mt-3 flex items-center justify-end gap-2">
-          <Button onClick={onClose} size="large" htmlType="button" danger>
-            {t("cancel")}
-          </Button>
-          <Button loading={isPending} size="large" type="primary" htmlType="submit">
-            {t("save")}
-          </Button>
-        </div>
-      </form>
-    </Modal>
+      </div>
+      <div className="mt-3 flex items-center justify-end gap-2">
+        <Button onClick={onClose} size="large" htmlType="button" danger>
+          {t("cancel")}
+        </Button>
+        <Button loading={isPending} size="large" type="primary" htmlType="submit">
+          {t("save")}
+        </Button>
+      </div>
+    </form>
   );
 };

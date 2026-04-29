@@ -61,7 +61,9 @@
     "image": "Изображение",
     "search": "Поиск",
     "category": "Категория",
-    "allCategories": "Все категории"
+    "allCategories": "Все категории",
+    "selectCategoryToEdit": "Выберите категорию в древовидной структуре слева, чтобы изменить настройки, или создайте новую",
+    "noCategories": "Категории не найдены"
   },
   "notifications": {
     "requestProcessing": "Запрос обрабатывается...",

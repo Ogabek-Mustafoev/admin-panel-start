@@ -6,19 +6,16 @@ export function generateId(): number {
   return nextId++;
 }
 
-// ─── Sortable ID helpers ───────────────────────────────────────────────────
 export type UniqueIdentifier = string | number;
 export const toSortableId = (id: number): UniqueIdentifier => `cat-${id}`;
 export const fromSortableId = (sid: UniqueIdentifier): number =>
   parseInt(String(sid).replace("cat-", ""), 10);
 
 
-/** Deep clone */
 export function cloneTree(items: ICategory[]): ICategory[] {
   return JSON.parse(JSON.stringify(items));
 }
 
-/** Find node by id anywhere in tree */
 export function findNode(
   items: ICategory[],
   id: number
@@ -31,7 +28,6 @@ export function findNode(
   return null;
 }
 
-/** Find parent of node */
 export function findParent(
   items: ICategory[],
   id: number,
@@ -45,7 +41,6 @@ export function findParent(
   return undefined as any;
 }
 
-/** Remove node from tree, return removed node */
 export function removeNode(
   items: ICategory[],
   id: number
@@ -67,7 +62,6 @@ export function removeNode(
   return { tree: recurse(items), removed };
 }
 
-/** Insert node as child of targetId at index */
 export function insertAsChild(
   items: ICategory[],
   targetId: number,
@@ -88,7 +82,6 @@ export function insertAsChild(
   });
 }
 
-/** Insert node at root level at index */
 export function insertAtRoot(
   items: ICategory[],
   node: ICategory,
@@ -100,7 +93,6 @@ export function insertAtRoot(
   return result;
 }
 
-/** Reorder children inside a parent */
 export function reorderChildren(
   items: ICategory[],
   parentId: number | null,
@@ -124,7 +116,6 @@ export function reorderChildren(
   });
 }
 
-/** Update a node's name */
 export function updateNode(
   items: ICategory[],
   id: number,
@@ -136,12 +127,10 @@ export function updateNode(
   });
 }
 
-/** Delete node */
 export function deleteNode(items: ICategory[], id: number): ICategory[] {
   return removeNode(items, id).tree;
 }
 
-/** Flatten tree to list of {item, depth, parentId, index} */
 export interface FlatItem {
   item: ICategory;
   depth: number;

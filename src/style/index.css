@@ -30,8 +30,8 @@
   }
 }
 
-@layer components {
-  .bg-theme {
-    @apply bg-white/30! dark:bg-black/30!
+@layer base {
+  .bg-themeBg {
+    @apply bg-white/30! dark:bg-black/30!;
   }
 }

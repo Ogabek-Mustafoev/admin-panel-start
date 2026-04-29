@@ -1,14 +1,16 @@
-import { Button, Input, Select } from "antd";
+import { Button, Empty, Input, Select, Skeleton } from "antd";
 import { useCategoryProps } from "../props/catagory";
 import { IoMdAdd, IoMdSearch } from "react-icons/io";
 import { debounce } from "lodash";
 import { DeleteModal } from "@/components";
 import { CatalogForm } from "../forms";
 import { CategoryTree } from "../component/category-tree";
+import type { ICategory } from "@/schema/category";
 
 export const CategoryPage = () => {
   const {
     isLoading,
+    isFetching,
     query,
     categories,
     t,
@@ -22,13 +24,15 @@ export const CategoryPage = () => {
     category,
     onCancel,
     handleClick,
+    categoriesCount,
   } = useCategoryProps();
 
   return (
     <section className="relative -mt-6 -ml-6 flex gap-2 overflow-hidden">
-      <div className="category-tree bg-theme h-screen max-w-sm flex-1 p-3 pt-6">
+      <div className="category-tree bg-themeBg before:bg-themeBg h-screen max-w-sm flex-1 p-3 pt-6">
         <Input
-          defaultValue={query}
+          allowClear
+          value={query} 
           className="max-w-sm min-w-40 flex-1"
           placeholder={t("search", { ns: "pages" })}
           prefix={<IoMdSearch className="h-5 w-5 text-gray-400" />}
@@ -36,33 +40,47 @@ export const CategoryPage = () => {
         />
         <div className="mt-3 mb-2 flex items-center gap-2">
           <h2 className="text-xl font-medium">{t("allCategories", { ns: "pages" })}:</h2>
-          <p className="bg-primary rounded-lg px-2 py-1 font-medium text-white">{categories?.length ?? 0}</p>
+          <p className="bg-primary rounded-lg px-2 py-1 font-medium text-white">{categoriesCount}</p>
         </div>
-        <CategoryTree />
+        {isLoading ? (
+          <Skeleton active />
+        ) : categories?.length ? (
+          <CategoryTree
+            isFetching={isFetching}
+            activeCategoryId={category?.id ?? category?.parent_id}
+            categoriesData={categories ?? []}
+            onAddChild={item => handleClick({ parent_id: item.id } as ICategory)}
+            onEdit={item => handleClick(item)}
+            onDelete={item => handleClick(item, true)}
+          />
+        ) : (
+          <Empty className="mt-20" description={t("noCategories", { ns: "pages" })} />
+        )}
       </div>
-      <div className="top-0 z-10 flex items-start gap-3 pt-6">
-        <Select
-          allowClear
-          value={is_active}
-          options={statuses}
-          showSearch={false}
-          className="w-48"
-          loading={false}
-          onChange={filterByStatus}
-          placeholder={t("status")}
-        />
-        <Button onClick={() => handleClick()} icon={<IoMdAdd />} type="primary" className="ml-auto">
-          {t("addCategory")}
-        </Button>
+      <div className="top-0 z-10 flex flex-1 flex-col gap-3 pt-6">
+        <div className="flex w-full items-center justify-between gap-2">
+          <Select
+            allowClear
+            value={is_active}
+            options={statuses}
+            showSearch={false}
+            className="w-48"
+            loading={false}
+            onChange={filterByStatus}
+            placeholder={t("status")}
+          />
+          <Button onClick={() => handleClick()} icon={<IoMdAdd />} type="primary">
+            {t("addCategory")}
+          </Button>
+        </div>
+        {isOpenForm ? (
+          <CatalogForm onAction={onCancel} category={category} isFetching={isFetching} fetchingProps={fetchingProps} />
+        ) : (
+          <div className="bg-themeBg blur-bg m-auto flex max-w-sm flex-col items-center justify-center gap-3 rounded-2xl p-3">
+            <Empty description={t("selectCategoryToEdit", { ns: "pages" })} />
+          </div>
+        )}
       </div>
-
-      <CatalogForm
-        open={isOpenForm}
-        onAction={onCancel}
-        category={category}
-        isFetching={isLoading}
-        fetchingProps={fetchingProps}
-      />
       <DeleteModal
         isOpen={isOpen}
         onCancel={onCancel}

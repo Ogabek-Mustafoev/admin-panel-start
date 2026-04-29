@@ -21,6 +21,7 @@ export interface TreeItemProps {
   item: ICategory;
   depth: number;
   isExpanded: boolean;
+  isActive?: boolean;
   isDragging?: boolean;
   isOver?: boolean;
   isDropTarget?: boolean;
@@ -36,6 +37,7 @@ export const TreeItemContent: React.FC<TreeItemProps & { dragHandleProps?: any }
   item,
   depth,
   isExpanded,
+  isActive,
   isDropTarget,
   isDragging,
   onToggle,
@@ -44,55 +46,50 @@ export const TreeItemContent: React.FC<TreeItemProps & { dragHandleProps?: any }
   onDelete,
   dragHandleProps,
 }) => {
-  const hasChildren = item.children.length > 0;
-  const isFolder = hasChildren;
+  const hasChildren = item?.children?.length > 0;
 
-  const menuItems: MenuProps["items"] = isFolder
-    ? [
-        {
-          key: "addChild",
-          icon: <FolderAddOutlined />,
-          label: "Child qo'shish",
-          onClick: () => onAddChild(item),
-        },
-        {
-          key: "edit",
-          icon: <EditOutlined />,
-          label: "Tahrirlash",
-          onClick: () => onEdit(item),
-        },
-        { type: "divider" },
-        {
-          key: "delete",
-          icon: <DeleteOutlined />,
-          label: "O'chirish",
-          danger: true,
-          onClick: () => onDelete(item.id),
-        },
-      ]
-    : [
-        {
-          key: "edit",
-          icon: <EditOutlined />,
-          label: "Tahrirlash",
-          onClick: () => onEdit(item),
-        },
-        { type: "divider" },
-        {
-          key: "delete",
-          icon: <DeleteOutlined />,
-          label: "O'chirish",
-          danger: true,
-          onClick: () => onDelete(item.id),
-        },
-      ];
+  const menuItems: MenuProps["items"] = [
+    {
+      key: "addChild",
+      icon: <FolderAddOutlined />,
+      label: "Child qo'shish",
+      onClick({ domEvent }) {
+        domEvent.stopPropagation();
+        onAddChild(item);
+      },
+    },
+    {
+      key: "edit",
+      icon: <EditOutlined />,
+      label: "Tahrirlash",
+      onClick({ domEvent }) {
+        domEvent.stopPropagation();
+        onEdit(item);
+      },
+    },
+    { type: "divider" },
+    {
+      key: "delete",
+      icon: <DeleteOutlined />,
+      label: "O'chirish",
+      danger: true,
+      onClick({ domEvent }) {
+        domEvent.stopPropagation();
+        onDelete(item.id);
+      },
+    },
+  ];
 
   return (
     <div
+      role="button"
+      onClick={() => onEdit(item)}
       className={[
         "group flex items-center gap-2 rounded-lg px-2 py-1.5 transition-all duration-200 select-none",
-        "border border-transparent hover:border-white/20 hover:bg-white/10 hover:shadow-lg dark:hover:bg-white/5",
-        "backdrop-blur-sm",
+        "border backdrop-blur-sm",
+        isActive
+          ? "border-white/20 bg-white/10 shadow-lg dark:bg-white/5"
+          : "border-transparent hover:border-white/20 hover:bg-white/10 hover:shadow-lg dark:hover:bg-white/5",
         isDropTarget ? "bg-blue-400/20 ring-1 ring-blue-400/50" : "",
         isDragging ? "opacity-30 grayscale" : "",
       ]
@@ -104,29 +101,26 @@ export const TreeItemContent: React.FC<TreeItemProps & { dragHandleProps?: any }
       <span className="cursor-grab text-gray-300 opacity-0 transition-opacity group-hover:opacity-100 hover:text-gray-500 active:cursor-grabbing">
         <DragOutlined style={{ fontSize: 14 }} />
       </span>
-
       <span
         className="flex shrink-0 cursor-pointer items-center gap-1"
         onClick={() => hasChildren && onToggle(item.id)}
       >
-        {isFolder ? (
+        {hasChildren ? (
           isExpanded ? (
-            <FolderOpenOutlined style={{ fontSize: 18, color: "#f59e0b" }} />
+            <FolderOpenOutlined className="text-orange-500!" />
           ) : (
-            <FolderOutlined style={{ fontSize: 18, color: "#f59e0b" }} />
+            <FolderOutlined className="text-orange-500!" />
           )
         ) : (
-          <TagOutlined style={{ fontSize: 16, color: "#818cf8" }} />
+          <TagOutlined className="text-blue-600! dark:text-blue-500!" />
         )}
       </span>
-
       <span
         className="flex-1 cursor-pointer text-sm font-medium text-gray-800 dark:text-gray-200"
         onClick={() => hasChildren && onToggle(item.id)}
       >
         {item.name.uz}
       </span>
-
       <Dropdown menu={{ items: menuItems }} trigger={["click"]} placement="bottomRight">
         <Button
           size="small"

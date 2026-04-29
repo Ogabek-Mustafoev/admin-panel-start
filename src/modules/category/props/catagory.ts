@@ -5,6 +5,18 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ICategory } from "@/schema/category";
 
+const countAll = (nodes: ICategory[]): number => {
+  let count = 0;
+  for (const node of nodes) {
+    count += 1;
+    if (node.children?.length) {
+      count += countAll(node.children);
+    }
+  }
+
+  return count;
+};
+
 export const useCategoryProps = () => {
   const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +35,9 @@ export const useCategoryProps = () => {
     },
   };
 
-  const { data, isLoading } = useFetchData<IResponse<ICategory[]>>(fetchingProps);
+  const { data, isFetching, isLoading } = useFetchData<IResponse<ICategory[]>>(fetchingProps);
+
+  const categoriesCount = useMemo(() => countAll(data?.data || []), [isFetching]);
 
   const statuses = useMemo(() => {
     return STATUSES.map(({ label, value }) => ({
@@ -69,6 +83,8 @@ export const useCategoryProps = () => {
   return {
     t,
     isLoading,
+    isFetching,
+    categoriesCount,
     categories: data?.data,
     fetchingProps,
     statuses,

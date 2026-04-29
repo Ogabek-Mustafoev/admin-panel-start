@@ -11,6 +11,7 @@ interface RenderTreeProps {
   expandedIds: Set<number>;
   activeId: UniqueIdentifier | null;
   overItemId: UniqueIdentifier | null;
+  activeCategoryId?: number;
   onToggle: (id: number) => void;
   onAddChild: (item: ICategory) => void;
   onEdit: (item: ICategory) => void;
@@ -23,6 +24,7 @@ export const RenderTree: React.FC<RenderTreeProps> = ({
   expandedIds,
   activeId,
   overItemId,
+  activeCategoryId,
   onToggle,
   onAddChild,
   onEdit,
@@ -40,6 +42,7 @@ export const RenderTree: React.FC<RenderTreeProps> = ({
               item={item}
               depth={depth}
               isExpanded={isExpanded}
+              isActive={activeCategoryId === item.id}
               activeId={activeId}
               overItemId={overItemId}
               onToggle={onToggle}
@@ -54,6 +57,7 @@ export const RenderTree: React.FC<RenderTreeProps> = ({
                 expandedIds={expandedIds}
                 activeId={activeId}
                 overItemId={overItemId}
+                activeCategoryId={activeCategoryId}
                 onToggle={onToggle}
                 onAddChild={onAddChild}
                 onEdit={onEdit}

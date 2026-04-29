@@ -61,7 +61,9 @@
     "image": "Rasm",
     "search": "Qidirish",
     "category": "Kategoriya",
-    "allCategories": "Barcha kategoriyalar"
+    "allCategories": "Barcha kategoriyalar",
+    "selectCategoryToEdit": "Sozlamalarni tahrirlash uchun chapdagi kategoriya daraxtidan birini tanlang yoki yangisini qo'shing",
+    "noCategories": "Kategoriyalar topilmadi"
   },
   "notifications": {
     "requestProcessing": "So'rov bajarilmoqda",
