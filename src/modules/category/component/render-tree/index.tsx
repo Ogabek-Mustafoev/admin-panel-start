@@ -50,7 +50,7 @@ export const RenderTree: React.FC<RenderTreeProps> = ({
               onEdit={onEdit}
               onDelete={onDelete}
             />
-            {isExpanded && item.children.length > 0 && (
+            {isExpanded && item.children && item.children.length > 0 && (
               <RenderTree
                 items={item.children}
                 depth={depth + 1}

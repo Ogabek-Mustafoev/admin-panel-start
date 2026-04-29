@@ -22,7 +22,7 @@ export function findNode(
 ): ICategory | null {
   for (const item of items) {
     if (item.id === id) return item;
-    const found = findNode(item.children, id);
+    const found = findNode(item?.children ?? [], id);
     if (found) return found;
   }
   return null;
@@ -35,7 +35,7 @@ export function findParent(
 ): ICategory | null {
   for (const item of items) {
     if (item.id === id) return parent;
-    const found = findParent(item.children, id, item);
+    const found = findParent(item?.children ?? [], id, item);
     if (found !== undefined) return found;
   }
   return undefined as any;
@@ -53,7 +53,7 @@ export function removeNode(
       if (item.id === id) {
         removed = item;
       } else {
-        result.push({ ...item, children: recurse(item.children) });
+        result.push({ ...item, children: recurse(item?.children ?? []) });
       }
     }
     return result;
@@ -70,7 +70,7 @@ export function insertAsChild(
 ): ICategory[] {
   return items.map((item) => {
     if (item.id === targetId) {
-      const children = [...item.children];
+      const children = [...item?.children ?? []];
       if (index === -1 || index >= children.length) {
         children.push({ ...node, parent_id: targetId });
       } else {
@@ -78,7 +78,7 @@ export function insertAsChild(
       }
       return { ...item, children };
     }
-    return { ...item, children: insertAsChild(item.children, targetId, node, index) };
+    return { ...item, children: insertAsChild(item?.children ?? [], targetId, node, index) };
   });
 }
 
@@ -107,12 +107,12 @@ export function reorderChildren(
   }
   return items.map((item) => {
     if (item.id === parentId) {
-      const children = [...item.children];
+      const children = [...(item?.children ?? [])];
       const [moved] = children.splice(fromIndex, 1);
       children.splice(toIndex, 0, moved);
       return { ...item, children };
     }
-    return { ...item, children: reorderChildren(item.children, parentId, fromIndex, toIndex) };
+    return { ...item, children: reorderChildren(item?.children ?? [], parentId, fromIndex, toIndex) };
   });
 }
 
@@ -123,7 +123,7 @@ export function updateNode(
 ): ICategory[] {
   return items.map((item) => {
     if (item.id === id) return { ...item, ...data };
-    return { ...item, children: updateNode(item.children, id, data) };
+    return { ...item, children: updateNode(item?.children ?? [], id, data) };
   });
 }
 
@@ -146,7 +146,7 @@ export function flattenTree(
   const result: FlatItem[] = [];
   items.forEach((item, index) => {
     result.push({ item, depth, parentId, index });
-    if (item.children.length > 0) {
+    if (item?.children && item.children.length > 0) {
       result.push(...flattenTree(item.children, depth + 1, item.id));
     }
   });

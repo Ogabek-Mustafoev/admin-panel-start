@@ -44,7 +44,7 @@ export const useTheme = () => {
   }, [theme, bgImage, bgColor]);
 
   useEffect(() => {
-    document.documentElement.style.setProperty("--color-primary", primaryColor);
+    document.documentElement.style.setProperty("--primary-color", primaryColor);
   }, [primaryColor]);
 
   const handleThemeChange = (theme: TTheme) => {

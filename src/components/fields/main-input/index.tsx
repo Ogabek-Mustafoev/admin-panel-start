@@ -1,18 +1,23 @@
 import isFunction from "lodash/isFunction";
 import { useTranslation } from "react-i18next";
-import { Input, InputNumber, type InputNumberProps, type InputProps, TimePicker } from "antd";
+import { Input, InputNumber, type InputNumberProps, type InputProps, Space, TimePicker } from "antd";
 import { type FieldValues, useController, type UseControllerProps } from "react-hook-form";
 import dayjs from "dayjs";
+import type { ReactNode } from "react";
+import { FaCopy } from "react-icons/fa6";
+import type { TNameField } from "@/schema";
 
 interface IMainInput<T extends FieldValues> extends UseControllerProps<T> {
   max?: number;
   min?: number;
   label?: string;
   format?: string;
+  onCopy?: (value: TNameField) => void;
   showFormat?: string;
   required?: boolean;
   disabled?: boolean;
-  addonBefore?: string;
+  addonBefore?: ReactNode;
+  addonAfter?: ReactNode;
   placeholder?: string;
   size?: InputProps["size"];
   setValue?: (val: any) => any;
@@ -35,6 +40,9 @@ export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
     prefix,
     required,
     disabled,
+    addonAfter,
+    onCopy,
+    addonBefore,
     setValue,
     formatter,
     showFormat = "HH:mm",
@@ -138,6 +146,17 @@ export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
     }
   };
 
+  const handleCopy = () => {
+    const langDada: TNameField = {
+      uz: field?.value,
+      ru: field?.value,
+      en: field?.value,
+    };
+    if (isFunction(onCopy)) {
+      onCopy(langDada);
+    }
+  };
+
   return (
     <div>
       {label && (
@@ -145,7 +164,37 @@ export const MainInput = <T extends FieldValues>(props: IMainInput<T>) => {
           {label} {required && <span className="font-bold text-red-500">*</span>}
         </p>
       )}
-      {renderInput()}
+      {onCopy ? (
+        <Space.Compact block size={size}>
+          {addonBefore && <Space.Addon className="font-semibold">{addonBefore}</Space.Addon>}
+          {renderInput()}
+          <Space.Addon
+            role="button"
+            onClick={handleCopy}
+            className="bg-primary! flex cursor-pointer items-center justify-center transition-all duration-100 active:scale-95"
+          >
+            <FaCopy />
+          </Space.Addon>
+        </Space.Compact>
+      ) : addonBefore && addonAfter ? (
+        <Space.Compact block size={size}>
+          <Space.Addon className="font-semibold">{addonBefore}</Space.Addon>
+          {renderInput()}
+          <Space.Addon className="font-semibold">{addonAfter}</Space.Addon>
+        </Space.Compact>
+      ) : addonBefore ? (
+        <Space.Compact block size={size}>
+          <Space.Addon className="font-semibold">{addonBefore}</Space.Addon>
+          {renderInput()}
+        </Space.Compact>
+      ) : addonAfter ? (
+        <Space.Compact block size={size}>
+          {renderInput()}
+          <Space.Addon className="font-semibold">{addonAfter}</Space.Addon>
+        </Space.Compact>
+      ) : (
+        renderInput()
+      )}
       {error?.message && <p className="text-xs text-red-500">{t(error.message)}</p>}
     </div>
   );

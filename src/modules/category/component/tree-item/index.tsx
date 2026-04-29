@@ -16,6 +16,8 @@ import {
 
 import type { ICategory } from "@/schema/category";
 import { toSortableId, type UniqueIdentifier } from "../tree-utils";
+import { useTranslation } from "react-i18next";
+import type { TLocale } from "@/types";
 
 export interface TreeItemProps {
   item: ICategory;
@@ -46,7 +48,8 @@ export const TreeItemContent: React.FC<TreeItemProps & { dragHandleProps?: any }
   onDelete,
   dragHandleProps,
 }) => {
-  const hasChildren = item?.children?.length > 0;
+  const hasChildren = !!(item?.children && item.children.length > 0);
+  const locale = useTranslation().i18n.language as TLocale;
 
   const menuItems: MenuProps["items"] = [
     {
@@ -88,7 +91,7 @@ export const TreeItemContent: React.FC<TreeItemProps & { dragHandleProps?: any }
         "group flex items-center gap-2 rounded-lg px-2 py-1.5 transition-all duration-200 select-none",
         "border backdrop-blur-sm",
         isActive
-          ? "border-white/20 bg-white/10 shadow-lg dark:bg-white/5"
+          ? "bg-dark/10 border-black/20 dark:border-white/20 shadow-lg dark:bg-white/5"
           : "border-transparent hover:border-white/20 hover:bg-white/10 hover:shadow-lg dark:hover:bg-white/5",
         isDropTarget ? "bg-blue-400/20 ring-1 ring-blue-400/50" : "",
         isDragging ? "opacity-30 grayscale" : "",
@@ -107,19 +110,19 @@ export const TreeItemContent: React.FC<TreeItemProps & { dragHandleProps?: any }
       >
         {hasChildren ? (
           isExpanded ? (
-            <FolderOpenOutlined className="text-orange-500!" />
+            <FolderOpenOutlined className="text-orange-500! text-lg" />
           ) : (
-            <FolderOutlined className="text-orange-500!" />
+            <FolderOutlined className="text-orange-500! text-lg" />
           )
         ) : (
-          <TagOutlined className="text-blue-600! dark:text-blue-500!" />
+          <TagOutlined className="text-blue-600! dark:text-blue-500! text-lg" />
         )}
       </span>
       <span
         className="flex-1 cursor-pointer text-sm font-medium text-gray-800 dark:text-gray-200"
         onClick={() => hasChildren && onToggle(item.id)}
       >
-        {item.name.uz}
+        {item?.name?.[locale]}
       </span>
       <Dropdown menu={{ items: menuItems }} trigger={["click"]} placement="bottomRight">
         <Button

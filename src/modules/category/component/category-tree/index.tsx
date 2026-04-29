@@ -27,11 +27,13 @@ import {
 } from "../tree-utils";
 
 import { RenderTree } from "../render-tree";
+import { useTranslation } from "react-i18next";
+import type { TLocale } from "@/types";
 
 interface CategoryTreeProps {
   isFetching?: boolean;
   categoriesData?: ICategory[];
-  activeCategoryId?: number;
+  activeCategoryId?: number | null;
   onAddChild?: (item: ICategory) => void;
   onEdit?: (item: ICategory) => void;
   onDelete?: (item: ICategory) => void;
@@ -46,6 +48,7 @@ export const CategoryTree: React.FC<CategoryTreeProps> = ({
   onDelete,
 }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
+  const locale = useTranslation().i18n.language as TLocale;
 
   useEffect(() => {
     if (categoriesData) {
@@ -54,7 +57,6 @@ export const CategoryTree: React.FC<CategoryTreeProps> = ({
   }, [isFetching]);
 
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
-
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [overId, setOverId] = useState<UniqueIdentifier | null>(null);
 
@@ -98,7 +100,7 @@ export const CategoryTree: React.FC<CategoryTreeProps> = ({
       if (expandTimerRef.current) clearTimeout(expandTimerRef.current);
       expandTimerRef.current = setTimeout(() => {
         const node = findNode(categories, hoveredId);
-        if (node && node.children.length > 0) {
+        if (node && node.children && node.children.length > 0) {
           setExpandedIds(prev => new Set([...prev, hoveredId]));
         }
       }, 600);
@@ -145,7 +147,7 @@ export const CategoryTree: React.FC<CategoryTreeProps> = ({
           tree = insertAsChild(tree, parentId, removed, newIndex);
         }
       } else {
-        if (targetNode && targetNode.children.length > 0) {
+        if (targetNode && targetNode.children && targetNode.children.length > 0) {
           tree = insertAsChild(tree, targetId, removed);
           setExpandedIds(e => new Set([...e, targetId]));
         } else if (targetNode) {
@@ -180,7 +182,7 @@ export const CategoryTree: React.FC<CategoryTreeProps> = ({
                 expandedIds={expandedIds}
                 activeId={activeId}
                 overItemId={overId}
-                activeCategoryId={activeCategoryId}
+                activeCategoryId={activeCategoryId as number | undefined}
                 onToggle={handleToggle}
                 onAddChild={handleAddChild}
                 onEdit={handleEdit}
@@ -191,12 +193,12 @@ export const CategoryTree: React.FC<CategoryTreeProps> = ({
           <DragOverlay dropAnimation={null}>
             {activeItem && (
               <div className="bg-themeBge blur-bg flex items-center gap-2 rounded-lg px-3 py-2 opacity-95 shadow-xl">
-                {activeItem.children.length > 0 ? (
-                  <FolderOutlined className="text-orange-500!" />
+                {activeItem.children && activeItem.children.length > 0 ? (
+                  <FolderOutlined className="text-orange-500! text-lg" />
                 ) : (
-                  <TagOutlined className="text-blue-600! dark:text-blue-500!" />
+                  <TagOutlined className="text-blue-600! dark:text-blue-500! text-lg" />
                 )}
-                <span className="text-sm font-medium">{activeItem.name.uz}</span>
+                <span className="text-sm font-medium">{activeItem?.name?.[locale]}</span>
               </div>
             )}
           </DragOverlay>

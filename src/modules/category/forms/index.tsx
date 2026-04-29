@@ -19,7 +19,7 @@ export const CatalogForm: FC<ICatalogForm> = ({ fetchingProps, isFetching, onAct
   const { t, i18n } = useTranslation();
   const { mutate, isPending } = useMutate();
 
-  const { handleSubmit, reset, unregister, control } = useForm<TCategoryField>({
+  const { handleSubmit, reset, unregister, control, setValue } = useForm<TCategoryField>({
     resolver: categoryResolver as Resolver<TCategoryField>,
   });
 
@@ -66,13 +66,17 @@ export const CatalogForm: FC<ICatalogForm> = ({ fetchingProps, isFetching, onAct
 
   return (
     <form onSubmit={onSubmit} className="mt-3 flex flex-col gap-2">
-      <div className={`${category?.id ? "grid-cols-2" : "grid-cols-3"} blur-bg bg-themeBg grid gap-3 rounded-2xl p-3`}>
+      <div className={`blur-bg bg-themeBg grid gap-3 rounded-2xl p-3`}>
+        <p className={`font-medium`}>
+          {t("name", { ns: "table" })} <span className="font-bold text-red-500">*</span>
+        </p>
         <MainInput<TCategoryField>
           required
+          addonBefore="UZ"
           name="name.uz"
           size="large"
           control={control}
-          label={t("name", { ns: "table", lng: "uz" })}
+          onCopy={val => setValue("name", val)}
           placeholder={t("name", { ns: "table", lng: "uz" })}
         />
         <MainInput<TCategoryField>
@@ -80,15 +84,15 @@ export const CatalogForm: FC<ICatalogForm> = ({ fetchingProps, isFetching, onAct
           name="name.ru"
           size="large"
           control={control}
-          label={t("name", { ns: "table", lng: "ru" })}
+          addonBefore="RU"
           placeholder={t("name", { ns: "table", lng: "ru" })}
         />
         <MainInput<TCategoryField>
           required
+          addonBefore="EN"
           name="name.en"
           size="large"
           control={control}
-          label={t("name", { ns: "table", lng: "en" })}
           placeholder={t("name", { ns: "table", lng: "en" })}
         />
         {category?.id && (

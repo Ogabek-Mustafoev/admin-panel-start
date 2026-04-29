@@ -1,6 +1,6 @@
 import { useMemo, useState, type FC } from "react";
 import { FiLogOut, FiUser } from "react-icons/fi";
-import { Button, Dropdown, Menu, type DropDownProps } from "antd";
+import { Button, Dropdown, Menu, type MenuProps } from "antd";
 import { LiaArrowsAltVSolid } from "react-icons/lia";
 import { useAppDispatch, useAppSelector, useFilterRoutes } from "@/hooks";
 import { TbLayoutSidebarLeftCollapse, TbLayoutSidebarRightCollapse } from "react-icons/tb";
@@ -36,7 +36,7 @@ export const Sidebar: FC = () => {
     [sideBarLinks?.length, i18n.language],
   );
 
-  const items: DropDownProps["menu"]["items"] = [
+  const items: MenuProps["items"] = [
     {
       key: "1",
       label: (
@@ -97,8 +97,7 @@ export const Sidebar: FC = () => {
           mode="inline"
           className="flex-1"
           inlineCollapsed={isCollapsed}
-          tooltip={isCollapsed ? { placement: "left" } : false}
-          items={menuLinks}
+          items={menuLinks as MenuProps["items"]}
         />
         <div className="mt-auto flex flex-col gap-4 border-t border-white/10 p-4">
           <ChangeLocale isLarge />

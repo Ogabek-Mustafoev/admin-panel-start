@@ -5,3 +5,5 @@ export const nameSchema = yup.object({
   en: yup.string().required("requiredName"),
   ru: yup.string().required("requiredName"),
 });
+
+export type TNameField = yup.InferType<typeof nameSchema>;

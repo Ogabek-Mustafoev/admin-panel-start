@@ -2,6 +2,10 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+:root {
+  --primary-color: #355872;
+}
+
 @theme {
   --breakpoint-xxs: 0px;
   --breakpoint-xsm: 420px;
@@ -18,7 +22,7 @@
   --color-light: #f3f3f4;
   --color-footer: #072134;
   --color-default: #f9fafb;
-  --color-primary: #355872;
+  --color-primary: var(--primary-color);
   --color-secondary: #527593;
   --color-dark-theme: #141414;
 }
@@ -32,6 +36,6 @@
 
 @layer base {
   .bg-themeBg {
-    @apply bg-white/30! dark:bg-black/30!;
+    @apply border border-black/5 bg-white/30! shadow dark:border-white/5 dark:bg-black/30!;
   }
 }
