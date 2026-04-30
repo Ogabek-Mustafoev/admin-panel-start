@@ -105,8 +105,7 @@ export const TreeItem: FC<TreeItemProps> = ({
       <div
         onClick={handleRowClick}
         className={[
-          "group flex items-center rounded-lg px-2 py-1.5 transition-all duration-200 select-none",
-          "border backdrop-blur-sm",
+          "group flex items-center border rounded-lg px-2 py-1.5 transition-all duration-200 select-none",
           isActive
             ? "bg-dark/10 border-black/20 shadow-lg dark:border-white/20 dark:bg-white/5"
             : "border-transparent hover:border-black/20 hover:bg-white/10 hover:shadow-lg dark:hover:border-white/20 dark:hover:bg-white/5",

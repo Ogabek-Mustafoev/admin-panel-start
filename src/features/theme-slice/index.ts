@@ -46,9 +46,6 @@ const themeSlice = createSlice({
       state.bgColor = action.payload;
       if (action.payload) {
         state.bgImage = null;
-        localStorage.setItem("bgColor", action.payload);
-      } else {
-        localStorage.removeItem("bgColor");
       }
     },
     setPrimaryColor(state, action: PayloadAction<string>) {

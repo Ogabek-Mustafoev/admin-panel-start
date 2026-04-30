@@ -9,7 +9,7 @@ import {
 } from "@/schema/user.ts";
 import type { IResponse } from "@/types";
 import { saveBackground, removeBackgroundFromDB } from "@/utils/db";
-import { setBgImage, logIn, setBgColor } from "@/features";
+import { setBgImage, logIn } from "@/features";
 import { PREDEFINED_BG_COLORS } from "@/constants/data";
 
 export const useProfileProps = () => {
@@ -56,7 +56,7 @@ export const useProfileProps = () => {
   const handleRemove = async () => {
     await removeBackgroundFromDB();
     dispatch(setBgImage(null));
-    dispatch(setBgColor(null));
+    handleBgColorChange(null);
   };
 
   const availableBgColors =

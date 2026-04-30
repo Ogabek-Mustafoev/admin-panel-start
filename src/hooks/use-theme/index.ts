@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 
 import type { TTheme } from "@/types";
 import { useAppSelector } from "@/hooks";
-import { setTheme, setPrimaryColor, setBgColor } from "@/features";
+import { setTheme, setPrimaryColor, setBgColor, setBgImage } from "@/features";
 
 import { PREDEFINED_BG_COLORS } from "@/constants/data";
+
+import { getBackground, removeBackgroundFromDB } from "@/utils/db";
 
 export const useTheme = () => {
   const { theme, primaryColor, bgColor, bgImage } = useAppSelector(
@@ -25,6 +27,18 @@ export const useTheme = () => {
 
     localStorage.setItem("theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    const loadSavedBg = async () => { 
+      if (!bgImage && !localStorage.getItem("bgColor")) {
+        const savedBg = await getBackground();
+        if (savedBg) {
+          dispatch(setBgImage(savedBg));
+        }
+      }
+    };
+    loadSavedBg();
+  }, []);
 
   useEffect(() => {
     if (bgImage) return;
@@ -55,7 +69,13 @@ export const useTheme = () => {
     dispatch(setPrimaryColor(color));
   };
 
-  const handleBgColorChange = (color: string | null) => {
+  const handleBgColorChange = async (color: string | null) => {
+    if (color) {
+      localStorage.setItem("bgColor", color);
+      await removeBackgroundFromDB();
+    } else {
+      localStorage.removeItem("bgColor");
+    }
     dispatch(setBgColor(color));
   };
 

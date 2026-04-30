@@ -1,25 +1,10 @@
-import { type FC, useEffect } from "react";
+import { type FC } from "react";
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "@/components";
-import { useAppDispatch, useAppSelector } from "@/hooks";
-import { getBackground } from "@/utils/db";
-import { setBgImage } from "@/features";
+import { useAppSelector } from "@/hooks";
 
 export const BaseLayout: FC = () => {
   const { bgImage, bgColor } = useAppSelector((state) => state.theme);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const loadBackground = async () => {
-      if (!bgImage && !bgColor) {
-        const savedBg = await getBackground();
-        if (savedBg) {
-          dispatch(setBgImage(savedBg));
-        }
-      }
-    };
-    loadBackground();
-  }, [bgImage, bgColor]);
 
   return (
     <div className="flex h-screen w-screen overflow-hidden">
