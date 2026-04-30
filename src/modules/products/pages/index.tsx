@@ -8,7 +8,7 @@ import dayjs from "dayjs";
 import { useMemo } from "react";
 
 export const ProductsPage = () => {
-  const { isFetching, categories, t, query, statuses, filterBySearch, is_active, filterByStatus, locale } =
+  const { isFetching, categories, t, query, statuses, filterBySearch, is_active, filterByStatus, locale, navigate } =
     useProductsProps();
 
   const tableColumns: TableColumnsType<ICategory> = useMemo(
@@ -113,8 +113,8 @@ export const ProductsPage = () => {
         bordered
         rowKey="id"
         size="small"
-        onRow={record => ({
-          onClick: () => console.log(record),
+        onRow={product => ({
+          onClick: () => navigate(`/products/${product.id}`),
           style: { cursor: "pointer" },
         })}
         pagination={false}

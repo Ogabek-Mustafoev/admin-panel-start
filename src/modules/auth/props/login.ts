@@ -8,7 +8,7 @@ import type { IResponse } from "@/types";
 interface IAuth {
   access_token: string;
   type: string;
-  user: IUser
+  user: IUser;
 }
 
 export const useLoginProps = () => {
@@ -19,20 +19,18 @@ export const useLoginProps = () => {
     resolver: loginUserResolver as Resolver<TLoginUserField>,
     defaultValues: {
       type: "phone",
-      contact: "998907291129",
-      password: "password",
     },
   });
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async data => {
     mutate({
       data,
       method: "POST",
-      success: t('successEnter', { ns: 'notifications' }),
+      success: t("successEnter", { ns: "notifications" }),
       url: "/login",
       onSuccess: ({ data }) => {
         localStorage.setItem("mediaManageToken", data?.access_token);
-        window.location.href = "/profile"
+        window.location.href = "/profile";
       },
     });
   });
@@ -42,7 +40,7 @@ export const useLoginProps = () => {
     control,
     onSubmit,
     isPending,
-    type: watch('type'),
-    setValue
+    type: watch("type"),
+    setValue,
   };
 };

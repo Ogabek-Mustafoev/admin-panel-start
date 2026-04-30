@@ -8,8 +8,8 @@ export const PREDEFINED_COLORS = [
 ];
 
 export const PREDEFINED_BG_COLORS = {
-  light: ["#fdf8f1", "#f0f2f5"],
-  dark: ["#111", "#222"],
+  light: ["#f0f2f5", "#fdf8f1"],
+  dark: ["#222", "#111"],
 };
 
 export const GLASS = {

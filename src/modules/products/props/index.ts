@@ -4,10 +4,12 @@ import type { IMeta, IResponse, TLocale } from "@/types";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import type { ICategory } from "@/schema/category";
+import { useNavigate } from "react-router";
 
 export const useProductsProps = () => {
   const { t, i18n } = useTranslation();
   const { getQueryParams, setQueryParams } = useQueryParams();
+  const navigate = useNavigate();
 
   const params = getQueryParams();
 
@@ -57,6 +59,7 @@ export const useProductsProps = () => {
     isFetching,
     fetchingProps,
     statuses,
+    navigate,
     locale: i18n.language as TLocale,
     query: params.query,
     filterBySearch,
