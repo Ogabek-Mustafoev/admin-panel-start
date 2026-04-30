@@ -109,7 +109,7 @@ export const TreeItem: FC<TreeItemProps> = ({
           "border backdrop-blur-sm",
           isActive
             ? "bg-dark/10 border-black/20 shadow-lg dark:border-white/20 dark:bg-white/5"
-            : "border-transparent hover:border-black/20 dark:hover:border-white/20 hover:bg-white/10 hover:shadow-lg dark:hover:bg-white/5",
+            : "border-transparent hover:border-black/20 hover:bg-white/10 hover:shadow-lg dark:hover:border-white/20 dark:hover:bg-white/5",
           isDropInside ? "bg-primary/10 ring-primary ring-1" : "",
           isDragSource ? "opacity-30 grayscale" : "",
         ]

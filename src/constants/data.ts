@@ -9,7 +9,7 @@ export const PREDEFINED_COLORS = [
 
 export const PREDEFINED_BG_COLORS = {
   light: ["#f0f2f5", "#fdf8f1"],
-  dark: ["#222", "#111"],
+  dark: ["#191919", "#111"],
 };
 
 export const GLASS = {
@@ -22,6 +22,7 @@ export const GLASS = {
     menuSubBg: "rgba(255, 255, 255, 0.1)",
     menuPopupBg: "rgba(255, 255, 255, 0.75)",
     menuGroupTitle: "rgba(255, 255, 255, 0.5)",
+    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.1)",
   },
   dark: {
     bg: "rgba(20, 20, 20, 0.45)",
@@ -32,6 +33,32 @@ export const GLASS = {
     menuSubBg: "rgba(0, 0, 0, 0.2)",
     menuPopupBg: "rgba(30, 30, 30, 0.85)",
     menuGroupTitle: "rgba(255, 255, 255, 0.3)",
+    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.3)",
+  },
+};
+
+export const SOLID = {
+  light: {
+    bg: "rgba(255, 255, 255, 0.9)",
+    bgElevated: "#ffffff",
+    border: "rgba(0, 0, 0, 0.12)",
+    menuHoverBg: "rgba(0, 0, 0, 0.04)",
+    menuSelectedBg: "rgba(0, 0, 0, 0.08)",
+    menuSubBg: "rgba(0, 0, 0, 0.03)",
+    menuPopupBg: "#ffffff",
+    menuGroupTitle: "rgba(0, 0, 0, 0.45)",
+    boxShadow: "0 2px 12px 0 rgba(0, 0, 0, 0.12)",
+  },
+  dark: {
+    bg: "rgba(35, 35, 35, 0.95)",
+    bgElevated: "#2a2a2a",
+    border: "rgba(255, 255, 255, 0.12)",
+    menuHoverBg: "rgba(255, 255, 255, 0.06)",
+    menuSelectedBg: "rgba(255, 255, 255, 0.12)",
+    menuSubBg: "rgba(0, 0, 0, 0.3)",
+    menuPopupBg: "#2a2a2a",
+    menuGroupTitle: "rgba(255, 255, 255, 0.35)",
+    boxShadow: "0 2px 12px 0 rgba(0, 0, 0, 0.5)",
   },
 };
 

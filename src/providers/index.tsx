@@ -11,7 +11,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { ConfigProvider, theme as antdTheme } from "antd";
-import { GLASS } from "@/constants/data";
+import { GLASS, SOLID } from "@/constants/data";
+import { useAppSelector } from "@/hooks";
 
 const { darkAlgorithm, defaultAlgorithm } = antdTheme;
 
@@ -30,9 +31,11 @@ const antLocales: Record<TLocale, Locale> = {
 export const Providers: FC<IChildren> = ({ children }) => {
   const { i18n } = useTranslation();
   const { theme, primaryColor } = useTheme();
+  const { bgImage } = useAppSelector((state) => state.theme);
 
   const isLight = theme === "light";
-  const g = isLight ? GLASS.light : GLASS.dark;
+  const themeSet = bgImage ? GLASS : SOLID;
+  const g = isLight ? themeSet.light : themeSet.dark;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -47,7 +50,7 @@ export const Providers: FC<IChildren> = ({ children }) => {
             colorBgContainer: g.bg,
             colorBgElevated: g.bgElevated,
             borderRadius: 16,
-            boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.1)",
+            boxShadow: g.boxShadow,
           },
           components: {
             Button: {
@@ -59,6 +62,7 @@ export const Providers: FC<IChildren> = ({ children }) => {
             Table: {
               colorBgContainer: g.bg,
               colorBorder: g.border,
+              colorBorderSecondary: g.border,
             },
             Modal: {
               contentBg: g.bgElevated,

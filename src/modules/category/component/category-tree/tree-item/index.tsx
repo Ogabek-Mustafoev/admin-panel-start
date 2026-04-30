@@ -99,12 +99,12 @@ export const TreeItem: FC<TreeItemProps> = ({
       {dropPosition === "before" && <div className="bg-primary absolute top-0 right-0 left-0 z-20 h-0.5" />}
       <div
         onClick={handleRowClick}
-        className={[
+      className={[
           "group flex items-center rounded-lg px-2 py-1.5 transition-all duration-200 select-none",
           "border backdrop-blur-sm",
           isActive
             ? "bg-dark/10 border-black/20 shadow-lg dark:border-white/20 dark:bg-white/5"
-            : "border-transparent hover:border-white/20 hover:bg-white/10 hover:shadow-lg dark:hover:bg-white/5",
+            : "border-transparent hover:border-black/20 hover:bg-white/10 hover:shadow-lg dark:hover:border-white/20 dark:hover:bg-white/5",
           isDropInside ? "bg-primary/10 ring-primary ring-1" : "",
           isDragSource ? "opacity-30 grayscale" : "",
         ]
