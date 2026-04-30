@@ -14,6 +14,8 @@
     "confirmLogout": "Are you sure you want to log out?",
     "status": "Status",
     "active": "Active",
+    "edit": "Edit",
+    "addSubCategory": "Add subcategory",
     "inactive": "Inactive",
     "addCategory": "Add category",
     "editCategory": "Edit category",
@@ -21,7 +23,10 @@
     "confirmDeleting": "Are you sure you want to delete?",
     "mobilePhoto": "Mobile photo",
     "uploadImg": "Upload image",
-    "uploadVideo": "Upload video"
+    "uploadVideo": "Upload video",
+    "addFolder": "Add folder",
+    "addSubFolder": "Add subfolder",
+    "oldName": "Old name"
   },
   "table": {
     "name": "Name",
@@ -63,7 +68,12 @@
     "category": "Category",
     "allCategories": "All categories",
     "selectCategoryToEdit": "Select a category from the category tree on the left to edit the settings, or add a new one",
-    "noCategories": "Categories not found"
+    "noCategories": "Categories not found",
+    "folders": "Folders",
+    "allFolders": "All folders",
+    "noFolders": "Folders not found",
+    "selectFolderToEdit": "Select a folder from the folder tree on the left to edit the settings, or add a new one",
+    "taxonomy": "Taxonomy"
   },
   "notifications": {
     "requestProcessing": "Request is processing...",

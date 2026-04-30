@@ -14,6 +14,8 @@
     "confirmLogout": "Tizimdan chiqishga ishonchingiz komilmi?",
     "status": "Holat",
     "active": "Faol",
+    "edit": "Tahrirlash",
+    "addSubCategory": "Subkategoriya qo'shish",
     "inactive": "Faol emas",
     "addCategory": "Kategoriya qo'shish",
     "editCategory": "Kategoriya tahrirlash",
@@ -21,7 +23,10 @@
     "confirmDeleting": "Ma'lumot o'chirishga ishonchingiz komilmi?",
     "mobilePhoto": "Mobil foto",
     "uploadImg": "Rasm yuklash",
-    "uploadVideo": "Video yuklash"
+    "uploadVideo": "Video yuklash",
+    "addFolder": "Papka qo'shish",
+    "addSubFolder": "Subpapka qo'shish",
+    "oldName": "Eski nom"
   },
   "table": {
     "name": "Nomi",
@@ -63,7 +68,12 @@
     "category": "Kategoriya",
     "allCategories": "Barcha kategoriyalar",
     "selectCategoryToEdit": "Sozlamalarni tahrirlash uchun chapdagi kategoriya daraxtidan birini tanlang yoki yangisini qo'shing",
-    "noCategories": "Kategoriyalar topilmadi"
+    "noCategories": "Kategoriyalar topilmadi",
+    "folders": "Papkalar",
+    "allFolders": "Barcha papkalar",
+    "noFolders": "Papkalar topilmadi",
+    "selectFolderToEdit": "Sozlamalarni tahrirlash uchun chapdagi papka daraxtidan birini tanlang yoki yangisini qo'shing",
+    "taxonomy": "Taksonomiya"
   },
   "notifications": {
     "requestProcessing": "So'rov bajarilmoqda",

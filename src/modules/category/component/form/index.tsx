@@ -112,7 +112,7 @@ export const CatalogForm: FC<ICatalogForm> = ({ fetchingProps, isFetching, onAct
         <UploadFile<TCategoryField> required name="mobile_image_url" control={control} label={t("mobilePhoto")} />
       </div>
       <div className="mt-3 flex items-center justify-end gap-2">
-        <Button onClick={onClose} size="large" htmlType="button" danger>
+        <Button onClick={onClose} size="large" htmlType="button" type="primary" danger>
           {t("cancel")}
         </Button>
         <Button loading={isPending} size="large" type="primary" htmlType="submit">

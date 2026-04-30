@@ -56,40 +56,45 @@ export const TreeItem: FC<TreeItemProps> = ({
     [setDragRef, setDropRef],
   );
 
+  const removeChildren = (item: TreeItemProps["item"]) => ({
+    ...item,
+    children: [],
+  });
+
   const menuItems: MenuProps["items"] = [
     {
       key: "add",
       icon: <IoAddCircleOutline className="text-base!" />,
-      label: <span className="text-sm">{t('addSubCategory')}</span>,
+      label: <span className="text-sm">{t("addSubFolder")}</span>,
       onClick({ domEvent }) {
         domEvent.stopPropagation();
-        onAddChild?.(item);
+        onAddChild?.(removeChildren(item));
       },
     },
     {
       key: "edit",
       icon: <IoPencilOutline className="text-base!" />,
-      label: <span className="text-sm">{t('edit')}</span>,
+      label: <span className="text-sm">{t("edit")}</span>,
       onClick: ({ domEvent }) => {
         domEvent.stopPropagation();
-        onEdit?.(item);
+        onEdit?.(removeChildren(item));
       },
     },
     { type: "divider" },
     {
       key: "delete",
       icon: <IoTrashOutline className="text-base! text-red-500" />,
-      label: <span className="text-sm text-red-500">{t('delete')}</span>,
+      label: <span className="text-sm text-red-500">{t("delete")}</span>,
       onClick({ domEvent }) {
         domEvent.stopPropagation();
-        onDelete?.(item);
+        onDelete?.(removeChildren(item));
       },
     },
   ];
 
   const handleRowClick = () => {
     if (hasChildren) onToggle(item.id);
-    onEdit?.(item);
+    onEdit?.(removeChildren(item));
   };
 
   const isDropInside = dropPosition === "inside";
@@ -147,7 +152,7 @@ export const TreeItem: FC<TreeItemProps> = ({
           )}
         </span>
         <span className="flex-1 cursor-pointer truncate text-sm font-medium text-gray-800 dark:text-gray-200">
-          {item.name?.[locale]}
+          {item?.name?.[locale] || item?.name?.cn}
         </span>
         <Dropdown menu={{ items: menuItems }} trigger={["click"]} placement="bottomRight">
           <button

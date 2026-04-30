@@ -92,8 +92,8 @@ export const Sidebar: FC = () => {
           </Button>
         </div>
         <Menu
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
+          selectedKeys={[location.pathname]}
+          defaultOpenKeys={[location.pathname]}
           mode="inline"
           className="flex-1"
           inlineCollapsed={isCollapsed}
