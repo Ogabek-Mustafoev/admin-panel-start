@@ -38,7 +38,7 @@ export const useTheme = () => {
       ? PREDEFINED_BG_COLORS.dark
       : PREDEFINED_BG_COLORS.light;
 
-    if (bgColor && !availableColors.includes(bgColor)) {
+    if (!bgColor || !availableColors.includes(bgColor)) {
       dispatch(setBgColor(availableColors[0]));
     }
   }, [theme, bgImage, bgColor]);

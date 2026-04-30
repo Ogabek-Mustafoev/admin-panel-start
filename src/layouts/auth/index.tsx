@@ -5,7 +5,7 @@ import { getBackground } from "@/utils/db";
 import { setBgImage } from "@/features";
 
 export const AuthLayout: FC = () => {
-  const { bgImage, bgColor } = useAppSelector((state) => state.theme);
+  const { bgImage, bgColor } = useAppSelector(state => state.theme);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -19,6 +19,7 @@ export const AuthLayout: FC = () => {
     };
     loadBackground();
   }, [bgImage, bgColor]);
+
   return (
     <main
       className="h-screen w-screen overflow-hidden transition-all duration-500"
