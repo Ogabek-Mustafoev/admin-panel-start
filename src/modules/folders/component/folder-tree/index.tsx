@@ -232,10 +232,10 @@ export const FolderTree: FC<FolderTreeProps> = ({
             onEdit={onEdit}
             onDelete={onDelete}
           />
-          {isExpanded && item.children?.length ? (
+          {isExpanded && item?.children?.length ? (
             <div className="relative">
               <div
-                className="bg-secondary/10 absolute top-0 bottom-0 w-px dark:bg-white/6"
+                className="bg-themeBg absolute top-2 bottom-2 w-px dark:bg-white/6"
                 style={{ left: `${depth * 20 + 22}px` }}
               />
               {renderItems(item.children, depth + 1)}

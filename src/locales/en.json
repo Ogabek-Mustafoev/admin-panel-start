@@ -73,7 +73,10 @@
     "allFolders": "All folders",
     "noFolders": "Folders not found",
     "selectFolderToEdit": "Select a folder from the folder tree on the left to edit the settings, or add a new one",
-    "taxonomy": "Taxonomy"
+    "taxonomy": "Taxonomy",
+    "products": "Products",
+    "allProducts": "All products",
+    "noProducts": "Products not found"
   },
   "notifications": {
     "requestProcessing": "Request is processing...",

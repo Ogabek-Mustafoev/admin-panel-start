@@ -57,8 +57,8 @@ export const Providers: FC<IChildren> = ({ children }) => {
               colorBorderSecondary: g.border,
             },
             Table: {
-              fontSize: 16,
               colorBgContainer: g.bg,
+              colorBorder: g.border,
             },
             Modal: {
               contentBg: g.bgElevated,

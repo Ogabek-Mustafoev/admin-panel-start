@@ -73,7 +73,10 @@
     "allFolders": "Barcha papkalar",
     "noFolders": "Papkalar topilmadi",
     "selectFolderToEdit": "Sozlamalarni tahrirlash uchun chapdagi papka daraxtidan birini tanlang yoki yangisini qo'shing",
-    "taxonomy": "Taksonomiya"
+    "taxonomy": "Taksonomiya",
+    "products": "Mahsulotlar",
+    "allProducts": "Barcha mahsulotlar",
+    "noProducts": "Mahsulotlar topilmadi"
   },
   "notifications": {
     "requestProcessing": "So'rov bajarilmoqda",

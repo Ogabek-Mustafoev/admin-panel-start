@@ -115,7 +115,7 @@ export const TreeItem: FC<TreeItemProps> = ({
         ]
           .filter(Boolean)
           .join(" ")}
-        style={{ paddingLeft: `${depth * 24 + 8}px` }}
+        style={{ marginLeft: `${depth * 24 + 8}px` }}
       >
         <span
           className="cursor-grab text-gray-300 opacity-0 transition-opacity group-hover:opacity-100 hover:text-gray-500 active:cursor-grabbing"

@@ -73,7 +73,10 @@
     "allFolders": "Все папки",
     "noFolders": "Папки не найдены",
     "selectFolderToEdit": "Выберите папку в древовидной структуре слева, чтобы изменить настройки, или создайте новую",
-    "taxonomy": "Таксономия"
+    "taxonomy": "Таксономия",
+    "products": "Продукты",
+    "allProducts": "Все продукты",
+    "noProducts": "Продукты не найдены"
   },
   "notifications": {
     "requestProcessing": "Запрос обрабатывается...",
